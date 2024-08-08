@@ -34,14 +34,14 @@ def all_badges():
     badges = Badge.query.all()
     in_progress_badges = [badge for badge in badges if not badge.complete]
     complete_badges = [badge for badge in badges if badge.complete]
-    return render_template('badges.html', in_progress_badges=in_progress_badges, complete_badges=complete_badges)
+    return render_template('pages/badges.html', in_progress_badges=in_progress_badges, complete_badges=complete_badges)
 
 
 @app.route('/section/<choice>')
 def section(choice):
     print(choice)
     badges = Badge.query.filter(func.lower(Badge.section) == choice).all()
-    return render_template('section.html', badges=badges, section=choice)
+    return render_template('pages/section.html', badges=badges, section=choice)
 
 
 @app.route('/badge/<id>')
