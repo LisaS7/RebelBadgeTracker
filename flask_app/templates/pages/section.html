@@ -1,24 +1,25 @@
 {% extends 'base.html' %} {% block content %}
 <div class="">
-  <div class="row">
-    <div class="col">
-      <h2>{{ context.section }}</h2>
-      <p>{{context.percentage|percentage_format}}</p>
+  <div class="row justify-content-around">
+    <div class="col-4">
+      <h1 class="heading-tab">{{ context.section }}</h1>
     </div>
-    <div class="col">
+    <div class="col-1 section-percent">
+      {{context.percentage|percentage_format}}
+    </div>
+    <div class="col-4">
       {% for badge in context.badges %} {% if badge.complete %}
-      <svg height="30" width="30" xmlns="http://www.w3.org/2000/svg">
+      <svg height="50" width="50" xmlns="http://www.w3.org/2000/svg">
         <circle r="10" cx="20" cy="20" fill="pink" />
       </svg>
       {% else %}
-      <svg height="30" width="30" xmlns="http://www.w3.org/2000/svg">
+      <svg height="50" width="50" xmlns="http://www.w3.org/2000/svg">
         <circle r="10" cx="20" cy="20" fill="{{context.colour}}" />
       </svg>
       {% endif %} {% endfor %}
     </div>
   </div>
-  {% for badge in context.badges %}
-  <p>{{ badge.name }}</p>
-  {% endfor %}
+  {% for badge in context.badges %} {% include "elements/badge_card.html" %} {%
+  endfor %}
 </div>
 {% endblock %}
