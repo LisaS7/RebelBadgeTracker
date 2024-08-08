@@ -78,8 +78,8 @@
           />
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          {% for badge in badge_names %}
-          <a class="dropdown-item" href="#">{{ badge }}</a>
+          {% for badge in badges %}
+          <a class="dropdown-item" href={{ "/badge/" + badge.id | string }}>{{ badge.name }}</a>
           {% endfor %}
         </div>
       </li>

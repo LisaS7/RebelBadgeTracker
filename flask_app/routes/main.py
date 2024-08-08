@@ -2,6 +2,7 @@ from sqlalchemy import func
 from flask import render_template
 from flask_app import app
 from flask_app.models.badge import Badge
+from flask_app.models.clause import Clause
 
 
 # Add sections to context for use in navbar
@@ -11,10 +12,10 @@ def set_global_html_variable_values():
     sections = [badge.section for badge in Badge.query.all()]
     unique_sections = list(dict.fromkeys(sections))
 
-    badges_names = [badge.name for badge in Badge.query.all()]
-    badges_names.sort()
+    badges = Badge.query.all()
+    badges.sort(key=lambda x: x.name)
 
-    template_config = {'section_names': unique_sections, 'badge_names': badges_names}
+    template_config = {'section_names': unique_sections, 'badges': badges}
     return template_config
 
 
@@ -41,3 +42,10 @@ def section(choice):
     print(choice)
     badges = Badge.query.filter(func.lower(Badge.section) == choice).all()
     return render_template('section.html', badges=badges, section=choice)
+
+
+@app.route('/badge/<id>')
+def badge(id):
+    badge = Badge.query.get(id)
+    clauses = Clause.query.filter(Clause.badge_id==id).all()
+    return render_template('pages/badge.html', badge=badge, clauses=clauses)
