@@ -3,7 +3,6 @@ from flask_app import db
 from flask_app.config import SECTION_COLOURS
 
 
-
 class Badge(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
@@ -16,7 +15,7 @@ class Badge(db.Model):
     complete = db.Column(db.Boolean)
     date = db.Column(db.DateTime)
 
-    clauses = db.Relationship('Clause', backref='clause', lazy=True)
+    clauses = db.Relationship("Clause", backref="clause", lazy=True)
 
     @hybrid_property
     def completed_clauses(self):
@@ -25,10 +24,10 @@ class Badge(db.Model):
     @hybrid_property
     def percentage(self):
         return self.completed_clauses / self.clauses_required * 100
-    
+
     @hybrid_property
     def colour(self):
         return SECTION_COLOURS[self.section]
 
     def __repr__(self):
-        return f'<Badge {self.id} - {self.name}>'
+        return f"<Badge {self.id} - {self.name}>"
