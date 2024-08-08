@@ -1,9 +1,9 @@
-from sqlalchemy import func
 from flask import render_template
 from flask_app import app
 from flask_app.models.badge import Badge
 from flask_app.models.clause import Clause
-from flask_app.utils.sections_chart import make_sections_chart
+# from flask_app.utils.sections_chart import make_sections_chart
+from flask_app.config import SECTION_COLOURS
 
 
 # Add sections to context for use in navbar
@@ -40,9 +40,18 @@ def all_badges():
 
 @app.route('/section/<choice>')
 def section(choice):
-    badges = Badge.query.filter(func.lower(Badge.section) == choice).all()
-    chart = make_sections_chart()
-    return render_template('pages/section.html', badges=badges, section=choice, chart=chart)
+    name = choice.title()
+    badges = Badge.query.filter(Badge.section == name).all()
+    for badge in badges[0:5]:
+        badge.complete = True
+
+    context = {
+        'section': name,
+        'badges': badges,
+        'percentage': [badge.complete for badge in badges].count(True)/len(badges)*100,
+        'colour': SECTION_COLOURS[name]
+    }
+    return render_template('pages/section.html', context=context)
 
 
 @app.route('/badge/<id>')

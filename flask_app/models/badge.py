@@ -1,6 +1,6 @@
 from sqlalchemy.ext.hybrid import hybrid_property
 from flask_app import db
-
+from flask_app.config import SECTION_COLOURS
 
 
 
@@ -28,19 +28,7 @@ class Badge(db.Model):
     
     @hybrid_property
     def colour(self):
-        match self.section:
-            case "Wellness":
-                return "#0da96f"
-            case "Global":
-                return "#0c618d"
-            case "Wild":
-                return "#e66310"
-            case "Creative":
-                return "#80659c"
-            case "Self Aware":
-                return "#af3752"
-            case "Grown Up":
-                return "#c6ca51"
+        return SECTION_COLOURS[self.section]
 
     def __repr__(self):
         return f'<Badge {self.id} - {self.name}>'

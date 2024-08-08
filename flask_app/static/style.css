@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+
+:root {
+    --rebel-pink: #7f0150;
+    --light-pink: #c899b5;
+    --rebel-light-blue: #89cfe5;
+    --rebel-light-blue-dark1: #476d79;
+    --rebel-light-blue-dark2: #2c464e;
+    --rebel-dark-teal: #01617f;
+    --dark-grey: #595959;
+}
+
+body {
+  font-family: "Architects Daughter", cursive;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 1.5em;
+  color: white;
+}
+
+
+.centre-vertical {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+
+/* BADGES */
+
+.badge-card {
+    margin: 2rem 0px;
+    padding-top: 1rem;
+    padding-left: 1rem;
+    box-shadow: #ffffff 0px 1px 4px 0px;
+    border-radius: 1rem;
+}
+
+.badge-icon {
+    display: flex;
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    padding: 10px;
+    width: 80px;
+    height: 80px;
+    align-items: center;
+    justify-content: center;
+}
+
+.badge-icon > img {
+    width: 40px;
+}
+
+
+/*  PROGRESS BARS  */
+
+.progress {
+    height: 2rem;
+    background: var(--rebel-light-blue-dark1);
+}
+
+.progress-bar {
+    background: var(--rebel-light-blue);
+    font-size: 1.5rem;
+    color: var(--rebel-light-blue-dark2);
+}
+
+
+/* FOOTER */
+footer {
+
+}
+

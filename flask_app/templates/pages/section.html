@@ -1,7 +1,23 @@
 {% extends 'base.html' %} {% block content %}
 <div class="">
-  <h3>{{ section }}</h3>
-  {% for badge in badges %}
+  <div class="row">
+    <div class="col">
+      <h2>{{ context.section }}</h2>
+      <p>{{context.percentage|percentage_format}}</p>
+    </div>
+    <div class="col">
+      {% for badge in context.badges %} {% if badge.complete %}
+      <svg height="30" width="30" xmlns="http://www.w3.org/2000/svg">
+        <circle r="10" cx="20" cy="20" fill="pink" />
+      </svg>
+      {% else %}
+      <svg height="30" width="30" xmlns="http://www.w3.org/2000/svg">
+        <circle r="10" cx="20" cy="20" fill="{{context.colour}}" />
+      </svg>
+      {% endif %} {% endfor %}
+    </div>
+  </div>
+  {% for badge in context.badges %}
   <p>{{ badge.name }}</p>
   {% endfor %}
 </div>
