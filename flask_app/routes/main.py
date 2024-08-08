@@ -3,6 +3,7 @@ from flask import render_template
 from flask_app import app
 from flask_app.models.badge import Badge
 from flask_app.models.clause import Clause
+from flask_app.utils.sections_chart import make_sections_chart
 
 
 # Add sections to context for use in navbar
@@ -39,9 +40,9 @@ def all_badges():
 
 @app.route('/section/<choice>')
 def section(choice):
-    print(choice)
     badges = Badge.query.filter(func.lower(Badge.section) == choice).all()
-    return render_template('pages/section.html', badges=badges, section=choice)
+    chart = make_sections_chart()
+    return render_template('pages/section.html', badges=badges, section=choice, chart=chart)
 
 
 @app.route('/badge/<id>')
