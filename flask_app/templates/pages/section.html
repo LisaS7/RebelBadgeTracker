@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 <div class="">
-  <div class="row justify-content-around">
+  <div class="row justify-content-around mb-5">
     <div class="col-4">
       <h1
         class="heading-tab"
@@ -35,13 +35,11 @@
   <table id="badge-table" class="table table-dark">
     <thead>
       <tr>
-        <th></th>
-        <th></th>
-        <th></th>
+        <th>Icon</th>
+        <th>Name</th>
+        <th>Progress</th>
         <th>Rating</th>
         <th>Notes</th>
-        <th></th>
-        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -50,4 +48,19 @@
     </tbody>
   </table>
 </div>
+{% endblock %} {% block scripts %}
+<script>
+  $(document).ready(function () {
+    $("#badge-table").DataTable({
+      bPaginate: false,
+      columns: [
+        { orderable: false, searchable: false },
+        { orderable: true, searchable: true },
+        { orderable: false, searchable: false },
+        { orderable: true, searchable: true },
+        { orderable: true, searchable: true },
+      ],
+    });
+  });
+</script>
 {% endblock %}
