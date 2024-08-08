@@ -23,6 +23,10 @@ def set_global_html_variable_values():
 def get_image(filename):
     return './static/badge_images' + filename
 
+@app.route('/')
+def home():
+    return render_template('pages/home.html')
+
 
 @app.route('/badges')
 def all_badges():
