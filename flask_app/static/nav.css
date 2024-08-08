@@ -1,0 +1,28 @@
+nav {
+    background: var(--rebel-pink);
+}
+
+nav > .navbar-brand > img {
+    width: 6rem;
+}
+
+nav li {
+    padding: 0rem 2rem;
+}
+
+.nav-item > a > img {
+    width: 2rem;
+}
+
+.dropdown-menu {
+    background: var(--rebel-pink);
+}
+
+.dropdown-menu > a {
+    color: white !important;
+}
+
+.dropdown-menu > a:hover {
+    background: var(--light-pink);
+    color: var(--rebel-dark-teal) !important;
+}

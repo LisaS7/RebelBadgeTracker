@@ -1,0 +1,88 @@
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='nav.css') }}" />
+{% endblock %}
+
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+  <a class="navbar-brand" href="#"
+    ><img src="{{ url_for('static', filename='RebelLogo.svg') }}"
+  /></a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">
+          <img
+            src="{{ url_for('static', filename='/icons/home.svg') }}"
+            title="Home"
+          />
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('all_badges') }}">
+          <img
+            src="{{ url_for('static', filename='/icons/all_badges.svg') }}"
+            title="View All Badges"
+          />
+        </a>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbarDropdownSection"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <img
+            src="{{ url_for('static', filename='/icons/section.svg') }}"
+            title="Sections"
+          />
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          {% for section in section_names %}
+          <a
+            class="dropdown-item"
+            href="{{ url_for('section', choice=section|lower) }}"
+            >{{ section }}</a
+          >
+          {% endfor %}
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbarDropdownBadges"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <img
+            src="{{ url_for('static', filename='/icons/badge.svg') }}"
+            title="Badges"
+          />
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          {% for badge in badge_names %}
+          <a class="dropdown-item" href="#">{{ badge }}</a>
+          {% endfor %}
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
