@@ -2,14 +2,14 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='badge.css') }}" />
 {% endblock %}
 
-<div class="row badge-card">
-  <div class="col">
+<tr>
+  <td>
     <div class="badge-icon" style="background:{{badge.colour}};">
       <img src={{ url_for("get_image", filename=badge.image) }}/>
     </div>
-    <p>{{ badge.name }}</p>
-  </div>
-  <div class="col centre-vertical">
+  </td>
+  <td>{{ badge.name }}</td>
+  <td class="w-25">
     <div
       class="progress"
       role="progressbar"
@@ -22,7 +22,7 @@
         {{ badge.percentage | percentage_format }}
       </div>
     </div>
-  </div>
-  <div class="col centre-vertical">{{ badge.rating }}</div>
-  <div class="col centre-vertical text-wrap fs-6">{{ badge.notes }}</div>
-</div>
+  </td>
+  <td>{{ badge.rating }}</td>
+  <td class="w-25 text-wrap fs-6">{{ badge.notes }}</td>
+</tr>
