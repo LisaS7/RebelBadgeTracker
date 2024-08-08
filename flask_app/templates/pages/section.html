@@ -2,7 +2,12 @@
 <div class="">
   <div class="row justify-content-around">
     <div class="col-4">
-      <h1 class="heading-tab">{{ context.section }}</h1>
+      <h1
+        class="heading-tab"
+        style="background: {{context.colour}}; box-shadow: {{context.colour|lighter}} 0px 0px 5px 10px;"
+      >
+        {{ context.section }}
+      </h1>
     </div>
     <div class="col-1 section-percent">
       {{context.percentage|percentage_format}}
@@ -10,7 +15,7 @@
     <div class="col-4">
       {% for badge in context.badges %} {% if badge.complete %}
       <svg height="50" width="50" xmlns="http://www.w3.org/2000/svg">
-        <circle r="10" cx="20" cy="20" fill="pink" />
+        <circle r="10" cx="20" cy="20" fill="teal" />
       </svg>
       {% else %}
       <svg height="50" width="50" xmlns="http://www.w3.org/2000/svg">
@@ -19,7 +24,7 @@
       {% endif %} {% endfor %}
     </div>
   </div>
-  {% for badge in context.badges %} {% include "elements/badge_card.html" %} {%
-  endfor %}
+  {% for badge in context.badges %} {% include
+  "elements/badge_card/badge_card.html" %} {% endfor %}
 </div>
 {% endblock %}

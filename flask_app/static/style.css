@@ -23,43 +23,16 @@ body {
   color: var(--blue-dark2);
   font-size: 4rem;
   font-weight: 800;
-  background: var(--rebel-light-blue);
   position: absolute;
   left: 0;
   padding: 2rem 4rem 2rem 8rem;
   border-radius: 5px;
-  box-shadow: rgba(3, 175, 214, 0.507) 0px 0px 10px 10px;
+  /* box-shadow: rgba(146, 251, 211, 0.607) 0px 0px 5px 10px; */
 }
 
 .centre-vertical {
   margin-top: auto;
   margin-bottom: auto;
-}
-
-/* BADGES */
-
-.badge-card {
-  margin: 2rem 0px;
-  padding-top: 1rem;
-  padding-left: 1rem;
-  box-shadow: #ffffff 0px 1px 4px 0px;
-  border-radius: 1rem;
-}
-
-.badge-icon {
-  display: flex;
-  border-radius: 50%;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-  padding: 10px;
-  width: 80px;
-  height: 80px;
-  align-items: center;
-  justify-content: center;
-}
-
-.badge-icon > img {
-  width: 40px;
 }
 
 /*  PROGRESS BARS  */
