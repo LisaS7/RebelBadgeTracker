@@ -1,7 +1,7 @@
 from pathlib import Path
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from .utils.filters import percentage_format, lighten_colour
+from .utils.filters import percentage_format, adjust_colour
 
 
 app = Flask(__name__)
@@ -12,7 +12,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 app.jinja_env.filters["percentage_format"] = percentage_format
-app.jinja_env.filters["lighter"] = lighten_colour
+app.jinja_env.filters["adjust_colour"] = adjust_colour
 
 db = SQLAlchemy(app)
 

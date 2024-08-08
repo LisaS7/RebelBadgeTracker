@@ -4,7 +4,7 @@
     <div class="col-4">
       <h1
         class="heading-tab"
-        style="background: {{context.colour}}; box-shadow: {{context.colour|lighter}} 0px 0px 5px 10px;"
+        style="background: {{context.colour}}; box-shadow: {{context.colour|adjust_colour(1.1)}} 0px 0px 5px 10px;"
       >
         {{ context.section }}
       </h1>
@@ -12,7 +12,12 @@
     <div class="col-4">
       {% for badge in context.badges %} {% if badge.complete %}
       <svg height="50" width="50" xmlns="http://www.w3.org/2000/svg">
-        <circle r="10" cx="20" cy="20" fill="teal" />
+        <circle
+          r="10"
+          cx="20"
+          cy="20"
+          fill="{{context.colour|adjust_colour(0.3)}}"
+        />
       </svg>
       {% else %}
       <svg height="50" width="50" xmlns="http://www.w3.org/2000/svg">
