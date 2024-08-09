@@ -6,7 +6,7 @@
 {% endblock %}
 
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-  <a class="navbar-brand" href="#"
+  <a class="navbar-brand" href="https://www.rebelbadgestore.com/"
     ><img src="{{ url_for('static', filename='RebelLogo.svg') }}"
   /></a>
   <button
@@ -23,7 +23,7 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+      <li id="nav-home" class="nav-item">
         <a class="nav-link" href="/">
           <img
             src="{{ url_for('static', filename='/icons/home.svg') }}"
@@ -31,7 +31,7 @@
           />
         </a>
       </li>
-      <li class="nav-item">
+      <li id="nav-all" class="nav-item">
         <a class="nav-link" href="{{ url_for('all_badges') }}">
           <img
             src="{{ url_for('static', filename='/icons/all_badges.svg') }}"
@@ -40,7 +40,7 @@
         </a>
       </li>
 
-      <li class="nav-item dropdown">
+      <li id="nav-section" class="nav-item dropdown">
         <a
           class="nav-link dropdown-toggle"
           href="#"

@@ -1,28 +1,41 @@
 nav {
-    background: var(--rebel-pink);
+  background: var(--rebel-pink);
+  gap: 4rem;
 }
 
 nav > .navbar-brand > img {
-    width: 6rem;
+  width: 6rem;
 }
-
-nav li {
-    padding: 0rem 2rem;
+nav ul {
+  gap: 3rem;
+  position: relative;
 }
 
 .nav-item > a > img {
-    width: 2rem;
+  width: 2rem;
+}
+
+li.nav-item {
+  padding: 1rem;
+  transition: 0.3s;
+}
+
+li.nav-item:hover {
+  outline: 2px solid white;
+  border-radius: 20%;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
+    rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
 }
 
 .dropdown-menu {
-    background: var(--rebel-pink);
+  background: var(--rebel-pink);
 }
 
 .dropdown-menu > a {
-    color: white !important;
+  color: white !important;
 }
 
 .dropdown-menu > a:hover {
-    background: var(--light-pink);
-    color: var(--rebel-dark-teal) !important;
+  background: var(--light-pink);
+  color: var(--rebel-dark-teal) !important;
 }
