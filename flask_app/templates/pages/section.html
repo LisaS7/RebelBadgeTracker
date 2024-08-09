@@ -50,6 +50,7 @@
 
     new gridjs.Grid({
       columns: [
+        {id: 'id', name:'ID', hidden:true},
         { id: 'icon', name: 'Icon', sort: false },
         { id: 'name', name: 'Name' },
         { id: 'progress', name: 'Progress' },
@@ -59,6 +60,7 @@
       data: [
         {% for badge in context.badges %}
           {
+            id: "{{badge.id}}",
             icon: gridjs.html(`<div class="badge-icon" style="background:{{badge.colour}};">
         <img src={{ url_for('get_image', filename=badge.image) }}/>
       </div>`),
@@ -95,9 +97,10 @@
     });
 
     tableDiv.addEventListener('focusout', ev => {
+      console.log(ev)
       if (ev.target.tagName === 'TD') {
         if (savedValue !== ev.target.textContent) {
-          fetch('http://127.0.0.1:5000/badge/save', {
+          fetch(`http://127.0.0.1:5000/badge/${ev.target.dataset.elementId}`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
