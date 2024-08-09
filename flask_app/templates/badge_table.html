@@ -1,8 +1,9 @@
 <div class="row">
-<form class="form-inline w-25 my-2 my-lg-0">
-  <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search Badges" aria-label="Search">
-  <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-</form></div>
+<form class="form-group w-25 my-2 my-lg-0 d-flex flex-nowrap">
+  <input class="form-control mr-2" name="search" type="search" placeholder="Search Badges" aria-label="Search">
+  <button class="btn btn-outline-light mx-2" type="submit">Search</button>
+</form>
+</div>
 <table id="badge-table" class="table table-dark">
   <thead>
     <tr>
@@ -31,7 +32,6 @@
         aria-valuemax="100"
       >
         <div class="progress-bar" style="width: {{ badge.percentage }}%">
-          {{ badge.percentage | percentage_format }}
         </div>
       </div></td>
       <td><select class="ratingSelect form-select" data-column-id="rating" data-element-id="{{badge.id}}" data-element-value="{{badge.rating}}">
