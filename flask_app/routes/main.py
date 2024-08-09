@@ -1,4 +1,4 @@
-from flask import render_template, request
+from flask import render_template, request, redirect, url_for
 from flask_app import app
 from flask_app.models.badge import Badge
 from flask_app.models.clause import Clause
@@ -70,7 +70,6 @@ def section(choice):
 def badge(id):
     if request.method == "POST":
         data = request.get_json()
-        print(data)
 
         if "id" not in data:
             return "No id provided", 400
@@ -82,3 +81,16 @@ def badge(id):
     clauses = Clause.query.filter(Clause.badge_id == id).all()
 
     return render_template("pages/badge.html", badge=badge, clauses=clauses)
+
+
+@app.route("/clause/<id>", methods=["POST"])
+def clause(id):
+    data = request.get_json()
+    print(data)
+
+    if "id" not in data:
+        return "No id provided", 400
+
+    clause = Clause.query.get(id)
+    clause.save_changes(data)
+    return redirect(url_for("badge", id=clause.badge_id))
