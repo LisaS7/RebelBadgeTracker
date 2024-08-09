@@ -44,4 +44,4 @@ setTimeout(function () {
   Array.from(ratingSelect).forEach((element) => {
     element.value = element.dataset.elementValue;
   });
-}, 2000);
+}, 500);
