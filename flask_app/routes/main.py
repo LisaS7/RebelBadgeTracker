@@ -33,13 +33,9 @@ def home():
 @app.route("/badges")
 def all_badges():
     badges = Badge.query.all()
-    in_progress_badges = [badge for badge in badges if not badge.complete]
-    complete_badges = [badge for badge in badges if badge.complete]
-    return render_template(
-        "pages/badges.html",
-        in_progress_badges=in_progress_badges,
-        complete_badges=complete_badges,
-    )
+
+    context = {"badges": badges}
+    return render_template("pages/badges.html", context=context)
 
 
 @app.route("/section/<choice>")
@@ -48,7 +44,6 @@ def section(choice):
     badges = Badge.query.filter(Badge.section == name).all()
     for badge in badges[0:5]:
         badge.complete = True
-        badge.rating = "✖️"
 
     context = {
         "section": name,

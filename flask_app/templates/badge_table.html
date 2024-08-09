@@ -29,7 +29,7 @@
             icon: gridjs.html(`<div class="badge-icon" style="background:{{badge.colour}};">
                                 <img src={{ url_for('get_image', filename=badge.image) }}/>
                               </div>`),
-            name: "{{ badge.name }}",
+            name: gridjs.html(`<a href={{ url_for('badge', id=badge.id) }}><button type="button" class="btn btn-outline-light">{{ badge.name }}</button></a>`),
             progress: gridjs.html(`<div
                   class="progress"
                   role="progressbar"
