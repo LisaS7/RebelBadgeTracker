@@ -38,11 +38,14 @@ select {
   border: 1px solid var(--light-pink);
 }
 
+/* INPUT ELEMENTS */
+
 textarea {
   background: var(--bs-body-bg);
   color: white;
   font-size: 1rem;
-  border: 2px solid var(--light-pink);
+  border: 2px solid var(--rebel-pink);
+  outline: 2px solid var(--light-pink);
   border-radius: 5px;
 }
 
@@ -59,6 +62,11 @@ textarea {
   padding: 0.5rem;
 }
 
+.form-check-input:checked {
+  background-color: var(--rebel-pink);
+  border-color: var(--rebel-pink);
+}
+
 /*  PROGRESS BARS  */
 
 .progress {
@@ -67,9 +75,9 @@ textarea {
 }
 
 .progress-bar {
-  background: var(--dark-grey);
-  font-size: 1.5rem;
-  color: var(--rebel-light-blue);
+  background: var(--rebel-pink);
+  font-size: 1rem;
+  color: white;
 }
 
 /* SECTION */
