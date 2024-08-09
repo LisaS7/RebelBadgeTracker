@@ -32,17 +32,30 @@ body {
   /* box-shadow: rgba(146, 251, 211, 0.607) 0px 0px 5px 10px; */
 }
 
+select {
+  background: transparent;
+  border: 1px solid var(--light-pink);
+}
+
+textarea {
+  background: var(--dark-grey);
+  color: white;
+  font-size: 1rem;
+  border: 2px solid var(--light-pink);
+  border-radius: 5px;
+}
+
 /*  PROGRESS BARS  */
 
 .progress {
   height: 2rem;
-  background: var(--blue-dark1);
+  background: var(--dark-grey);
 }
 
 .progress-bar {
-  background: var(--rebel-light-blue);
+  background: var(--dark-grey);
   font-size: 1.5rem;
-  color: var(--blue-dark2);
+  color: var(--rebel-light-blue);
 }
 
 /* SECTION */

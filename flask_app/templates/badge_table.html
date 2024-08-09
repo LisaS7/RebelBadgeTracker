@@ -5,6 +5,7 @@
     const tableDiv = document.getElementById("badge-table");
 
     const editableCellAttributes = (data, row, col) => {
+      console.log(row)
       if (row) {
         return {contentEditable: 'true', 'data-element-id': row.cells[0].data};
       }
@@ -43,7 +44,7 @@
                   </div>
                 </div>`),
             rating: gridjs.html(`
-                  <select class="ratingSelect" data-column-id="rating" data-element-id="{{badge.id}}" data-element-value="{{badge.rating}}">
+                  <select class="ratingSelect form-select" data-column-id="rating" data-element-id="{{badge.id}}" data-element-value="{{badge.rating}}">
                     <option value="None">None</option>
                     <option value="✖️">✖️</option>
                     <option value="🟢">🟢</option>
@@ -52,7 +53,7 @@
                     <option value="🔴">🔴</option>
                     </select>
                         `),
-            notes: gridjs.html(`<td>{{badge.notes}}</td>`)
+            notes: gridjs.html(`<textarea rows="4" cols="50" data-column-id="notes" data-element-id="{{badge.id}}">{{badge.notes}}</textarea>`)
           },
         {% endfor %}
       ],
@@ -65,26 +66,25 @@
     let savedValue;
 
     tableDiv.addEventListener('focusin', ev => {
-      if (ev.target.tagName === 'TD' || ev.target.tagName === 'SELECT') {
+      if (ev.target.tagName === 'TD' || ev.target.tagName === 'SELECT' || ev.target.tagName === 'TEXTAREA') {
         savedValue = ev.target.textContent || ev.target.value;
       }
     });
 
     tableDiv.addEventListener('focusout', ev => {
-      console.log(ev)
 
       let newValue;
       if (ev.target.tagName === 'TD') {
         newValue = ev.target.textContent;
       }
-      if (ev.target.tagName === "SELECT") {
+      if (ev.target.tagName === "SELECT" || ev.target.tagName === 'TEXTAREA') {
         newValue = ev.target.value;
       }
 
+      console.log(ev.target.dataset)
+
       if (newValue) {
-        console.log("NEW VALUE: " + newValue)
         if (savedValue !== newValue) {
-          console.log(ev.target.dataset)
           fetch(`http://127.0.0.1:5000/badge/${ev.target.dataset.elementId}`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
