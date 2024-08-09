@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, request
 from flask_app import app
 from flask_app.models.badge import Badge
 from flask_app.models.clause import Clause
@@ -48,6 +48,7 @@ def section(choice):
     badges = Badge.query.filter(Badge.section == name).all()
     for badge in badges[0:5]:
         badge.complete = True
+        badge.rating = "✖️"
 
     context = {
         "section": name,
@@ -60,8 +61,17 @@ def section(choice):
     return render_template("pages/section.html", context=context)
 
 
-@app.route("/badge/<id>")
+@app.route("/badge/<id>", methods=["GET", "POST"])
 def badge(id):
+    if request.method == "POST":
+        data = request.get_json()
+
+        if "id" not in data:
+            return "No id provided", 400
+
+        badge = Badge.query.get(data["id"])
+        badge.save_changes(data)
+
     badge = Badge.query.get(id)
     clauses = Clause.query.filter(Clause.badge_id == id).all()
     return render_template("pages/badge.html", badge=badge, clauses=clauses)

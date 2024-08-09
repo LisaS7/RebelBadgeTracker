@@ -17,6 +17,12 @@ class Badge(db.Model):
 
     clauses = db.Relationship("Clause", backref="clause", lazy=True)
 
+    def save_changes(self, data):
+        for field in ["rating", "notes", "complete", "date"]:
+            if field in data:
+                setattr(self, field, data[field])
+        db.session.commit()
+
     @hybrid_property
     def completed_clauses(self):
         return sum([clause.complete for clause in self.clauses if clause.complete])
