@@ -62,23 +62,32 @@
           {
             id: "{{badge.id}}",
             icon: gridjs.html(`<div class="badge-icon" style="background:{{badge.colour}};">
-        <img src={{ url_for('get_image', filename=badge.image) }}/>
-      </div>`),
+                                <img src={{ url_for('get_image', filename=badge.image) }}/>
+                              </div>`),
             name: "{{ badge.name }}",
             progress: gridjs.html(`<div
-            class="progress"
-            role="progressbar"
-            aria-label="Basic example"
-            aria-valuenow="{{badge.percentage}}"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          >
-            <div class="progress-bar" style="width: {{ badge.percentage }}%">
-              {{ badge.percentage | percentage_format }}
-            </div>
-          </div>`),
-            rating: "{{ badge.rating }}",
-            notes: gridjs.html(`<td contenteditable="true" class="editor">{{badge.notes}}</td>`)
+                  class="progress"
+                  role="progressbar"
+                  aria-label="Basic example"
+                  aria-valuenow="{{badge.percentage}}"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  <div class="progress-bar" style="width: {{ badge.percentage }}%">
+                    {{ badge.percentage | percentage_format }}
+                  </div>
+                </div>`),
+            rating: gridjs.html(`
+                  <select class="ratingSelect" data-column-id="rating" data-element-id="{{badge.id}}" data-element-value="{{badge.rating}}">
+                    <option value="None">None</option>
+                    <option value="✖️">✖️</option>
+                    <option value="🟢">🟢</option>
+                    <option value="🟡">🟡</option>
+                    <option value="🟠">🟠</option>
+                    <option value="🔴">🔴</option>
+                    </select>
+                        `),
+            notes: gridjs.html(`<td>{{badge.notes}}</td>`)
           },
         {% endfor %}
       ],
@@ -87,30 +96,49 @@
       pagination: false,
     }).render(tableDiv);
 
+
     let savedValue;
 
-
     tableDiv.addEventListener('focusin', ev => {
-      if (ev.target.tagName === 'TD') {
-        savedValue = ev.target.textContent;
+      if (ev.target.tagName === 'TD' || ev.target.tagName === 'SELECT') {
+        savedValue = ev.target.textContent || ev.target.value;
       }
     });
 
     tableDiv.addEventListener('focusout', ev => {
       console.log(ev)
+
+      let newValue;
       if (ev.target.tagName === 'TD') {
-        if (savedValue !== ev.target.textContent) {
+        newValue = ev.target.textContent;
+      }
+      if (ev.target.tagName === "SELECT") {
+        newValue = ev.target.value;
+      }
+
+      if (newValue) {
+        console.log("NEW VALUE: " + newValue)
+        if (savedValue !== newValue) {
+          console.log(ev.target.dataset)
           fetch(`http://127.0.0.1:5000/badge/${ev.target.dataset.elementId}`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
               id: ev.target.dataset.elementId,
-              [ev.target.dataset.columnId]: ev.target.textContent
+              [ev.target.dataset.columnId]: newValue
             }),
           });
         }
         savedValue = undefined;
       }
     });
+
+
+    setTimeout(function(){
+      const ratingSelect = document.getElementsByClassName("ratingSelect");
+      Array.from(ratingSelect).forEach((element) => {
+        element.value = element.dataset.elementValue
+       });
+     }, 2000);
 </script>
 {% endblock %}
