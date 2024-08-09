@@ -32,18 +32,28 @@ def home():
 
 @app.route("/badges")
 def all_badges():
-    badges = Badge.query.all()
+    search = request.args.get("search")
 
-    context = {"badges": badges}
+    if search:
+        badges = Badge.query.filter(Badge.name.contains(search)).all()
+    else:
+        badges = Badge.query.all()
+
+    context = {"badges": badges, "search": search}
     return render_template("pages/badges.html", context=context)
 
 
 @app.route("/section/<choice>")
 def section(choice):
     name = choice.title()
-    badges = Badge.query.filter(Badge.section == name).all()
-    for badge in badges[0:5]:
-        badge.complete = True
+    search = request.args.get("search")
+
+    if search:
+        badges = Badge.query.filter(
+            Badge.section == name, Badge.name.contains(search)
+        ).all()
+    else:
+        badges = Badge.query.filter(Badge.section == name).all()
 
     context = {
         "section": name,
@@ -60,6 +70,7 @@ def section(choice):
 def badge(id):
     if request.method == "POST":
         data = request.get_json()
+        print(data)
 
         if "id" not in data:
             return "No id provided", 400
@@ -69,4 +80,5 @@ def badge(id):
 
     badge = Badge.query.get(id)
     clauses = Clause.query.filter(Clause.badge_id == id).all()
+
     return render_template("pages/badge.html", badge=badge, clauses=clauses)

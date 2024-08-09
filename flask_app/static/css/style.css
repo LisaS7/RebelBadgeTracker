@@ -11,6 +11,7 @@
   --light-grey: #a8a8a8;
   --dark-grey: #595959;
   --bs-body-bg: #3c3c3c;
+  --bs-body-color: white;
 }
 
 body {
@@ -27,7 +28,7 @@ body {
   font-weight: 800;
   position: absolute;
   left: 0;
-  padding: 2rem 4rem 2rem 8rem;
+  padding: 2rem 4rem 2rem 5rem;
   border-radius: 5px;
   /* box-shadow: rgba(146, 251, 211, 0.607) 0px 0px 5px 10px; */
 }

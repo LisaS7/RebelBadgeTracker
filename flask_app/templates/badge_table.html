@@ -1,109 +1,52 @@
-<div id="badge-table" class="table table-dark"></div>
+<div class="row">
+<form class="form-inline w-25 my-2 my-lg-0">
+  <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search Badges" aria-label="Search">
+  <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+</form></div>
+<table id="badge-table" class="table table-dark">
+  <thead>
+    <tr>
+      <th>Icon</th>
+      <th>Name</th>
+      <th>Progress</th>
+      <th>Rating</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for badge in context.badges %}
+    <tr>
+      <td>
+        <div class="badge-icon" style="background:{{badge.colour}};">
+          <img src={{ url_for('get_image', filename=badge.image) }}/>
+        </div>
+      </td>
+      <td><a href={{ url_for('badge', id=badge.id) }} textContent="{{badge.name}}"><button class="btn btn-outline-light">{{ badge.name }}</button></a></td>
+      <td><div
+        class="progress"
+        role="progressbar"
+        aria-label="Basic example"
+        aria-valuenow="{{badge.percentage}}"
+        aria-valuemin="0"
+        aria-valuemax="100"
+      >
+        <div class="progress-bar" style="width: {{ badge.percentage }}%">
+          {{ badge.percentage | percentage_format }}
+        </div>
+      </div></td>
+      <td><select class="ratingSelect form-select" data-column-id="rating" data-element-id="{{badge.id}}" data-element-value="{{badge.rating}}">
+        <option value="None">None</option>
+        <option value="✖️">✖️</option>
+        <option value="🟢">🟢</option>
+        <option value="🟡">🟡</option>
+        <option value="🟠">🟠</option>
+        <option value="🔴">🔴</option>
+        </select></td>
+      <td><textarea rows="4" cols="50" data-column-id="notes" data-element-id="{{badge.id}}">{{badge.notes}}</textarea></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% block scripts %}
-<script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
-<script>
-    const tableDiv = document.getElementById("badge-table");
-
-    const editableCellAttributes = (data, row, col) => {
-      console.log(row)
-      if (row) {
-        return {contentEditable: 'true', 'data-element-id': row.cells[0].data};
-      }
-      else {
-        return {};
-      }
-  };
-
-    new gridjs.Grid({
-      columns: [
-        {id: 'id', name:'ID', hidden:true},
-        { id: 'icon', name: 'Icon', sort: false },
-        { id: 'name', name: 'Name' },
-        { id: 'progress', name: 'Progress' },
-        { id: 'rating', name: 'Rating' },
-        { id: 'notes', name: 'Notes', 'attributes': editableCellAttributes },
-      ],
-      data: [
-        {% for badge in context.badges %}
-          {
-            id: "{{badge.id}}",
-            icon: gridjs.html(`<div class="badge-icon" style="background:{{badge.colour}};">
-                                <img src={{ url_for('get_image', filename=badge.image) }}/>
-                              </div>`),
-            name: gridjs.html(`<a href={{ url_for('badge', id=badge.id) }}><button type="button" class="btn btn-outline-light">{{ badge.name }}</button></a>`),
-            progress: gridjs.html(`<div
-                  class="progress"
-                  role="progressbar"
-                  aria-label="Basic example"
-                  aria-valuenow="{{badge.percentage}}"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                >
-                  <div class="progress-bar" style="width: {{ badge.percentage }}%">
-                    {{ badge.percentage | percentage_format }}
-                  </div>
-                </div>`),
-            rating: gridjs.html(`
-                  <select class="ratingSelect form-select" data-column-id="rating" data-element-id="{{badge.id}}" data-element-value="{{badge.rating}}">
-                    <option value="None">None</option>
-                    <option value="✖️">✖️</option>
-                    <option value="🟢">🟢</option>
-                    <option value="🟡">🟡</option>
-                    <option value="🟠">🟠</option>
-                    <option value="🔴">🔴</option>
-                    </select>
-                        `),
-            notes: gridjs.html(`<textarea rows="4" cols="50" data-column-id="notes" data-element-id="{{badge.id}}">{{badge.notes}}</textarea>`)
-          },
-        {% endfor %}
-      ],
-      search: true,
-      sort: true,
-      pagination: false,
-    }).render(tableDiv);
-
-
-    let savedValue;
-
-    tableDiv.addEventListener('focusin', ev => {
-      if (ev.target.tagName === 'TD' || ev.target.tagName === 'SELECT' || ev.target.tagName === 'TEXTAREA') {
-        savedValue = ev.target.textContent || ev.target.value;
-      }
-    });
-
-    tableDiv.addEventListener('focusout', ev => {
-
-      let newValue;
-      if (ev.target.tagName === 'TD') {
-        newValue = ev.target.textContent;
-      }
-      if (ev.target.tagName === "SELECT" || ev.target.tagName === 'TEXTAREA') {
-        newValue = ev.target.value;
-      }
-
-      console.log(ev.target.dataset)
-
-      if (newValue) {
-        if (savedValue !== newValue) {
-          fetch(`http://127.0.0.1:5000/badge/${ev.target.dataset.elementId}`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-              id: ev.target.dataset.elementId,
-              [ev.target.dataset.columnId]: newValue
-            }),
-          });
-        }
-        savedValue = undefined;
-      }
-    });
-
-
-    setTimeout(function(){
-      const ratingSelect = document.getElementsByClassName("ratingSelect");
-      Array.from(ratingSelect).forEach((element) => {
-        element.value = element.dataset.elementValue
-       });
-     }, 2000);
-</script>
+<script src="{{url_for('static', filename='js/table.js')}}"></script>
 {% endblock %}
