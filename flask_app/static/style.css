@@ -10,6 +10,7 @@
   --blue-dark2: #2c464e;
   --light-grey: #a8a8a8;
   --dark-grey: #595959;
+  --bs-body-bg: #3c3c3c;
 }
 
 body {
@@ -57,6 +58,37 @@ body {
 
 #badge-table {
   margin-top: 4rem;
+  background: transparent;
+}
+
+/* Make gridjs table dark */
+input.gridjs-input {
+  background-color: var(--bs-body-bg);
+}
+
+th.gridjs-th,
+.gridjs-tbody,
+td.gridjs-td {
+  background-color: var(--bs-body-bg);
+  color: white;
+}
+
+/* BADGES */
+
+.badge-icon {
+  display: flex;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  padding: 10px;
+  width: 80px;
+  height: 80px;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge-icon > img {
+  width: 40px;
 }
 
 /* FOOTER */

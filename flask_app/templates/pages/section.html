@@ -32,35 +32,82 @@
       {{context.percentage|percentage_format}}
     </div>
   </div>
-  <table id="badge-table" class="table table-dark">
-    <thead>
-      <tr>
-        <th>Icon</th>
-        <th>Name</th>
-        <th>Progress</th>
-        <th>Rating</th>
-        <th>Notes</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for badge in context.badges %} {% include
-      "elements/badge_card/badge_card.html" %} {% endfor %}
-    </tbody>
-  </table>
+  <div id="badge-table" class="table table-dark"></div>
 </div>
 {% endblock %} {% block scripts %}
+<script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
 <script>
-  $(document).ready(function () {
-    $("#badge-table").DataTable({
-      bPaginate: false,
+    const tableDiv = document.getElementById("badge-table");
+
+    const editableCellAttributes = (data, row, col) => {
+      if (row) {
+        return {contentEditable: 'true', 'data-element-id': row.cells[0].data};
+      }
+      else {
+        return {};
+      }
+  };
+
+    new gridjs.Grid({
       columns: [
-        { orderable: false, searchable: false },
-        { orderable: true, searchable: true },
-        { orderable: false, searchable: false },
-        { orderable: true, searchable: true },
-        { orderable: true, searchable: true },
+        { id: 'icon', name: 'Icon', sort: false },
+        { id: 'name', name: 'Name' },
+        { id: 'progress', name: 'Progress' },
+        { id: 'rating', name: 'Rating' },
+        { id: 'notes', name: 'Notes', 'attributes': editableCellAttributes },
       ],
+      data: [
+        {% for badge in context.badges %}
+          {
+            icon: gridjs.html(`<div class="badge-icon" style="background:{{badge.colour}};">
+        <img src={{ url_for('get_image', filename=badge.image) }}/>
+      </div>`),
+            name: "{{ badge.name }}",
+            progress: gridjs.html(`<div
+            class="progress"
+            role="progressbar"
+            aria-label="Basic example"
+            aria-valuenow="{{badge.percentage}}"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+            <div class="progress-bar" style="width: {{ badge.percentage }}%">
+              {{ badge.percentage | percentage_format }}
+            </div>
+          </div>`),
+            rating: "{{ badge.rating }}",
+            notes: gridjs.html(`<td contenteditable="true" class="editor">{{badge.notes}}</td>`)
+          },
+        {% endfor %}
+      ],
+      search: true,
+      sort: true,
+      pagination: false,
+    }).render(tableDiv);
+
+    let savedValue;
+
+
+    tableDiv.addEventListener('focusin', ev => {
+      if (ev.target.tagName === 'TD') {
+        savedValue = ev.target.textContent;
+      }
     });
-  });
+
+    tableDiv.addEventListener('focusout', ev => {
+      if (ev.target.tagName === 'TD') {
+        if (savedValue !== ev.target.textContent) {
+          fetch('http://127.0.0.1:5000/badge/save', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              id: ev.target.dataset.elementId,
+              [ev.target.dataset.columnId]: ev.target.textContent
+            }),
+          });
+        }
+        savedValue = undefined;
+      }
+    });
 </script>
 {% endblock %}
