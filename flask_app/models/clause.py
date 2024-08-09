@@ -7,7 +7,7 @@ class Clause(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     badge_id = db.Column(db.Integer, db.ForeignKey("badge.id"), nullable=False)
     description = db.Column(db.String(500))
-    complete = db.Column(db.Boolean)
+    complete = db.Column(db.Boolean, nullable=False, default=False)
     date = db.Column(db.DateTime)
 
     def __repr__(self):
@@ -15,7 +15,7 @@ class Clause(db.Model):
         return f"<Clause {self.id} - {badge.name} - {self.description}>"
 
     def save_changes(self, data):
-        date_str = data["date"]
+        date_str = data.get("date")
         if date_str:
             data["date"] = dt.strptime(date_str, "%Y-%m-%d")
         for field in ["complete", "date"]:

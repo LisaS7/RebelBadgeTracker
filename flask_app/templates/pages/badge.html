@@ -47,13 +47,9 @@
     <tr>
       <td>
         <div class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            value="{{clause.complete}}"
-            id="flexCheckDefault"
-            data-clause-id="{{clause.id}}"
-          />
+          <input class="form-check-input" type="checkbox" id="flexCheckDefault"
+          data-clause-id="{{clause.id}}" {{ 'checked="checked"' if
+          clause.complete }} />
         </div>
       </td>
       <td>{{clause.description}}</td>
