@@ -1,0 +1,109 @@
+<div id="badge-table" class="table table-dark"></div>
+{% block scripts %}
+<script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+<script>
+    const tableDiv = document.getElementById("badge-table");
+
+    const editableCellAttributes = (data, row, col) => {
+      if (row) {
+        return {contentEditable: 'true', 'data-element-id': row.cells[0].data};
+      }
+      else {
+        return {};
+      }
+  };
+
+    new gridjs.Grid({
+      columns: [
+        {id: 'id', name:'ID', hidden:true},
+        { id: 'icon', name: 'Icon', sort: false },
+        { id: 'name', name: 'Name' },
+        { id: 'progress', name: 'Progress' },
+        { id: 'rating', name: 'Rating' },
+        { id: 'notes', name: 'Notes', 'attributes': editableCellAttributes },
+      ],
+      data: [
+        {% for badge in context.badges %}
+          {
+            id: "{{badge.id}}",
+            icon: gridjs.html(`<div class="badge-icon" style="background:{{badge.colour}};">
+                                <img src={{ url_for('get_image', filename=badge.image) }}/>
+                              </div>`),
+            name: "{{ badge.name }}",
+            progress: gridjs.html(`<div
+                  class="progress"
+                  role="progressbar"
+                  aria-label="Basic example"
+                  aria-valuenow="{{badge.percentage}}"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  <div class="progress-bar" style="width: {{ badge.percentage }}%">
+                    {{ badge.percentage | percentage_format }}
+                  </div>
+                </div>`),
+            rating: gridjs.html(`
+                  <select class="ratingSelect" data-column-id="rating" data-element-id="{{badge.id}}" data-element-value="{{badge.rating}}">
+                    <option value="None">None</option>
+                    <option value="✖️">✖️</option>
+                    <option value="🟢">🟢</option>
+                    <option value="🟡">🟡</option>
+                    <option value="🟠">🟠</option>
+                    <option value="🔴">🔴</option>
+                    </select>
+                        `),
+            notes: gridjs.html(`<td>{{badge.notes}}</td>`)
+          },
+        {% endfor %}
+      ],
+      search: true,
+      sort: true,
+      pagination: false,
+    }).render(tableDiv);
+
+
+    let savedValue;
+
+    tableDiv.addEventListener('focusin', ev => {
+      if (ev.target.tagName === 'TD' || ev.target.tagName === 'SELECT') {
+        savedValue = ev.target.textContent || ev.target.value;
+      }
+    });
+
+    tableDiv.addEventListener('focusout', ev => {
+      console.log(ev)
+
+      let newValue;
+      if (ev.target.tagName === 'TD') {
+        newValue = ev.target.textContent;
+      }
+      if (ev.target.tagName === "SELECT") {
+        newValue = ev.target.value;
+      }
+
+      if (newValue) {
+        console.log("NEW VALUE: " + newValue)
+        if (savedValue !== newValue) {
+          console.log(ev.target.dataset)
+          fetch(`http://127.0.0.1:5000/badge/${ev.target.dataset.elementId}`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              id: ev.target.dataset.elementId,
+              [ev.target.dataset.columnId]: newValue
+            }),
+          });
+        }
+        savedValue = undefined;
+      }
+    });
+
+
+    setTimeout(function(){
+      const ratingSelect = document.getElementsByClassName("ratingSelect");
+      Array.from(ratingSelect).forEach((element) => {
+        element.value = element.dataset.elementValue
+       });
+     }, 2000);
+</script>
+{% endblock %}
