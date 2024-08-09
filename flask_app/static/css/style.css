@@ -30,15 +30,14 @@ body {
   left: 0;
   padding: 2rem 4rem 2rem 5rem;
   border-radius: 5px;
-  /* box-shadow: rgba(146, 251, 211, 0.607) 0px 0px 5px 10px; */
 }
+
+/* INPUT ELEMENTS */
 
 select {
   background: transparent;
   border: 1px solid var(--light-pink);
 }
-
-/* INPUT ELEMENTS */
 
 textarea {
   background: var(--bs-body-bg);
@@ -70,12 +69,15 @@ textarea {
 /*  PROGRESS BARS  */
 
 .progress {
-  background: var(--dark-grey);
+  background: var(--dark-grey) !important;
+  padding: 0 !important;
 }
 
 .progress-bar {
   background: var(--rebel-pink);
   font-size: 1rem;
+  height: 1rem;
+  border-radius: 5px;
   color: white;
 }
 
@@ -90,9 +92,21 @@ textarea {
   line-height: 9rem;
 }
 
+/* TABLE */
 #badge-table {
   margin-top: 4rem;
   background: transparent;
+}
+
+.table-head {
+  background-color: var(--dark-grey);
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.table-row {
+  border-bottom: 1px solid white;
 }
 
 /* BADGES */

@@ -1,29 +1,38 @@
 <div class="row">
-<form class="form-group w-25 my-2 my-lg-0 d-flex flex-nowrap">
-  <input class="form-control mr-2" name="search" type="search" placeholder="Search Badges" aria-label="Search">
-  <button class="btn btn-outline-light mx-2" type="submit">Search</button>
-</form>
+  <form class="form-group w-25 my-2 my-lg-0 d-flex flex-nowrap">
+    <input
+      class="form-control mr-2"
+      name="search"
+      type="search"
+      placeholder="Search Badges"
+      aria-label="Search"
+    />
+    <button class="btn btn-outline-light mx-2" type="submit">Search</button>
+  </form>
 </div>
-<table id="badge-table" class="table table-dark">
-  <thead>
-    <tr>
-      <th>Icon</th>
-      <th>Name</th>
-      <th>Progress</th>
-      <th>Rating</th>
-      <th>Notes</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for badge in context.badges %}
-    <tr>
-      <td>
-        <div class="badge-icon" style="background:{{badge.colour}};">
-          <img src={{ url_for('get_image', filename=badge.image) }}/>
-        </div>
-      </td>
-      <td><a href={{ url_for('badge', id=badge.id) }} textContent="{{badge.name}}"><button class="btn btn-outline-light">{{ badge.name }}</button></a></td>
-      <td><div
+<div id="badge-table" class="table table-dark">
+  <div class="row table-head">
+    <div class="col">Icon</div>
+    <div class="col">Name</div>
+    <div class="col">Progress</div>
+    <div class="col">Rating</div>
+    <div class="col">Notes</div>
+  </div>
+
+  {% for badge in context.badges %}
+  <div class="row table-row my-3">
+    <div class="col">
+      <div class="badge-icon" style="background:{{badge.colour}};">
+        <img src={{ url_for('get_image', filename=badge.image) }}/>
+      </div>
+    </div>
+    <div class="col">
+      <a href={{ url_for('badge', id=badge.id) }} textContent="{{badge.name}}">
+      <button class="btn btn-outline-light">{{ badge.name }}</button>
+      </a>
+    </div>
+    <div class="col">
+      <div
         class="progress"
         role="progressbar"
         aria-label="Basic example"
@@ -31,22 +40,38 @@
         aria-valuemin="0"
         aria-valuemax="100"
       >
-        <div class="progress-bar" style="width: {{ badge.percentage }}%">
-        </div>
-      </div></td>
-      <td><select class="ratingSelect form-select" data-column-id="rating" data-element-id="{{badge.id}}" data-element-value="{{badge.rating}}">
+        <div class="progress-bar" style="width: {{ badge.percentage }}%"></div>
+      </div>
+    </div>
+    <div class="col">
+      <select
+        class="ratingSelect form-select"
+        data-column-id="rating"
+        data-element-id="{{badge.id}}"
+        data-element-value="{{badge.rating}}"
+      >
         <option value="None">None</option>
         <option value="✖️">✖️</option>
         <option value="🟢">🟢</option>
         <option value="🟡">🟡</option>
         <option value="🟠">🟠</option>
         <option value="🔴">🔴</option>
-        </select></td>
-      <td><textarea rows="4" cols="50" data-column-id="notes" data-element-id="{{badge.id}}">{{badge.notes}}</textarea></td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+      </select>
+    </div>
+    <div class="col">
+      <textarea
+        class="mb-4"
+        rows="4"
+        cols="25"
+        data-column-id="notes"
+        data-element-id="{{badge.id}}"
+      >
+{{badge.notes}}</textarea
+      >
+    </div>
+  </div>
+  {% endfor %}
+</div>
 {% block scripts %}
 <script src="{{url_for('static', filename='js/table.js')}}"></script>
 {% endblock %}

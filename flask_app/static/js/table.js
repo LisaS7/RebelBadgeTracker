@@ -4,20 +4,13 @@ const tableDiv = document.getElementById("badge-table");
 let savedValue;
 
 tableDiv.addEventListener("focusin", (ev) => {
-  if (
-    ev.target.tagName === "TD" ||
-    ev.target.tagName === "SELECT" ||
-    ev.target.tagName === "TEXTAREA"
-  ) {
+  if (ev.target.tagName === "SELECT" || ev.target.tagName === "TEXTAREA") {
     savedValue = ev.target.textContent || ev.target.value;
   }
 });
 
 tableDiv.addEventListener("focusout", (ev) => {
   let newValue;
-  if (ev.target.tagName === "TD") {
-    newValue = ev.target.textContent;
-  }
   if (ev.target.tagName === "SELECT" || ev.target.tagName === "TEXTAREA") {
     newValue = ev.target.value;
   }
