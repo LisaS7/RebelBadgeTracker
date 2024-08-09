@@ -27,7 +27,7 @@
   <body class="bg-dark">
     {% include 'navbar/nav.html' %}
     <div class="container mt-5">{% block content %} {% endblock %}</div>
-    <footer class="container fs-6 sticky-bottom">
+    <footer class="container-fluid fs-6 fixed-bottom">
       Uicons by <a href="https://www.flaticon.com/uicons">Flaticon</a>
     </footer>
     <script
@@ -35,7 +35,6 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-
     <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
     {% block scripts %}{% endblock %}
   </body>
