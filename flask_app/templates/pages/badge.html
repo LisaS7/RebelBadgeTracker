@@ -12,12 +12,12 @@
     </h1>
   </div>
   <div class="col">
-    <div id="badge-details" class="card" style="width: 18rem">
+    <div id="badge-details" class="card">
       <ul class="list-group list-group-flush">
         <li class="list-group-item">Volume {{ badge.book }}</li>
         <li class="list-group-item">{{ badge.section }}</li>
         <li class="list-group-item">
-          <select class="ratingSelect form-select" data-column-id="rating">
+          <select class="ratingSelect form-select w-25" data-column-id="rating">
             <option value="None">None</option>
             <option value="✖️">✖️</option>
             <option value="🟢">🟢</option>
@@ -25,6 +25,17 @@
             <option value="🟠">🟠</option>
             <option value="🔴">🔴</option>
           </select>
+        </li>
+        <li id="notesListItem" class="list-group-item">
+            <label>Notes</label>
+          <textarea
+            rows="4"
+            cols="50"
+            data-column-id="notes"
+            data-element-id="{{badge.id}}"
+          >
+{{badge.notes}}</textarea
+          
         </li>
       </ul>
     </div>

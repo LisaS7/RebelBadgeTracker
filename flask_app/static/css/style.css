@@ -39,11 +39,24 @@ select {
 }
 
 textarea {
-  background: var(--dark-grey);
+  background: var(--bs-body-bg);
   color: white;
   font-size: 1rem;
   border: 2px solid var(--light-pink);
   border-radius: 5px;
+}
+
+#notesListItem textarea {
+  margin-top: 2rem;
+  padding: 1.5rem;
+}
+
+#notesListItem > label {
+  position: absolute;
+  top: 1rem;
+  left: 2rem;
+  background-color: var(--bs-body-bg);
+  padding: 0.5rem;
 }
 
 /*  PROGRESS BARS  */
