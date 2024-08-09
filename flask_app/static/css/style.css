@@ -44,12 +44,12 @@ textarea {
   background: var(--bs-body-bg);
   color: white;
   font-size: 1rem;
-  border: 2px solid var(--rebel-pink);
-  outline: 2px solid var(--light-pink);
   border-radius: 5px;
 }
 
 .notes textarea {
+  border: 2px solid var(--rebel-pink);
+  outline: 2px solid var(--light-pink);
   margin-top: 2rem;
   padding: 1.5rem;
 }
@@ -70,7 +70,6 @@ textarea {
 /*  PROGRESS BARS  */
 
 .progress {
-  height: 2rem;
   background: var(--dark-grey);
 }
 
