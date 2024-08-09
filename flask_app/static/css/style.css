@@ -46,12 +46,12 @@ textarea {
   border-radius: 5px;
 }
 
-#notesListItem textarea {
+.notes textarea {
   margin-top: 2rem;
   padding: 1.5rem;
 }
 
-#notesListItem > label {
+.notes > label {
   position: absolute;
   top: 1rem;
   left: 2rem;
@@ -86,18 +86,6 @@ textarea {
 #badge-table {
   margin-top: 4rem;
   background: transparent;
-}
-
-/* Make gridjs table dark */
-input.gridjs-input {
-  background-color: var(--bs-body-bg);
-}
-
-th.gridjs-th,
-.gridjs-tbody,
-td.gridjs-td {
-  background-color: var(--bs-body-bg);
-  color: white;
 }
 
 /* BADGES */
