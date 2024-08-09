@@ -1,10 +1,12 @@
 from pathlib import Path
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 from .utils.filters import percentage_format, adjust_colour
 
 
 app = Flask(__name__)
+CORS(app)
 
 db_path = Path.cwd() / "database" / "tracker.db"
 
