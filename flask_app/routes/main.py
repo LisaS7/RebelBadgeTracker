@@ -55,12 +55,17 @@ def section(choice):
     else:
         badges = Badge.query.filter(Badge.section == name).all()
 
+    if badges:
+        percentage = (
+            [badge.complete for badge in badges].count(True) / len(badges) * 100
+        )
+    else:
+        percentage = 0
+
     context = {
         "section": name,
         "badges": badges,
-        "percentage": [badge.complete for badge in badges].count(True)
-        / len(badges)
-        * 100,
+        "percentage": percentage,
         "colour": SECTION_COLOURS[name],
     }
     return render_template("pages/section.html", context=context)
