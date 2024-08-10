@@ -24,6 +24,7 @@
             class="form-select w-25"
             data-column-id="rating"
             data-rating="{{badge.rating}}"
+            data-badge-id="{{badge.id}}"
           >
             <option value="None">None</option>
             <option value="✖️">✖️</option>
@@ -45,10 +46,11 @@
         <li class="list-group-item notes">
           <label>Notes</label>
           <textarea
+            id="notes-text"
             rows="4"
             cols="50"
             data-column-id="notes"
-            data-element-id="{{badge.id}}"
+            data-badge-id="{{badge.id}}"
           >
 {{badge.notes}}</textarea
           >
