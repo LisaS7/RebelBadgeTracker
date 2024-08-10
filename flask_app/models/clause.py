@@ -9,6 +9,7 @@ class Clause(db.Model):
     description = db.Column(db.String(500))
     complete = db.Column(db.Boolean, nullable=False, default=False)
     date = db.Column(db.DateTime)
+    factor = db.Column(db.Float, default=1)
 
     def __repr__(self):
         badge = Badge.query.filter_by(id=self.badge_id).first()
