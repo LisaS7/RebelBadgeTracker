@@ -21,6 +21,19 @@ elements.forEach((element) =>
   })
 );
 
+const badgeCheckbox = document.getElementById("badge-checkbox");
+badgeCheckbox.addEventListener("focusout", function (ev) {
+  const badgeId = badgeCheckbox.dataset.badgeId;
+  fetch(`http://127.0.0.1:5000/badge/${badgeId}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      id: badgeId,
+      ["complete"]: ev.target.checked,
+    }),
+  });
+});
+
 // General event listeners for all elements in badge details list
 // const badgeDetails = document.getElementById("badge-details");
 // badgeDetails.addEventListener("focusout", (ev) => {
