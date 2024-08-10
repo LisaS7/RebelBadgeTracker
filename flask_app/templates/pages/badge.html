@@ -1,24 +1,24 @@
 {% extends 'base.html' %} {% block content %}
+
 <div class="row">
-  <div class="col">
-    <h1
-      class="heading-tab row gap-5"
-      style="background: {{badge.colour}}; box-shadow: {{badge.colour|adjust_colour(1.1)}} 0px 0px 5px 10px;"
-    >
-      <div class="badge-icon" style="background:{{badge.colour}};">
-        <img src={{ url_for('get_image', filename=badge.image) }}/>
-      </div>
-      {{badge.name}}
-    </h1>
-  </div>
+  <h1
+    class="heading-tab row gap-5 w-50"
+    style="background: {{badge.colour}}; box-shadow: {{badge.colour|adjust_colour(1.1)}} 0px 0px 5px 10px;"
+  >
+    <div class="badge-icon" style="background:{{badge.colour}};">
+      <img src={{ url_for('get_image', filename=badge.image) }}/>
+    </div>
+    {{badge.name}}
+  </h1>
 </div>
-<div class="row">
-  <div class="col d-flex flex-row-reverse">
-    <div id="badge-details" class="card w-50" data-badge-id="{{badge.id}}">
+<div id="badge-detail-container" class="row justify-content-evenly">
+  <div class="col">
+    <div id="badge-details" class="card" data-badge-id="{{badge.id}}">
+      <h3 class="card-header">Details</h3>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">Volume {{ badge.book }}</li>
-        <li class="list-group-item">{{ badge.section }}</li>
-        <li class="list-group-item">
+        <li class="list-group-item">📘 Volume {{ badge.book }}</li>
+        <li class="list-group-item">🏷️ {{ badge.section }}</li>
+        <li id="rating-container" class="list-group-item d-flex flex-row">
           <select
             id="rating-select"
             class="form-select w-25"
@@ -33,6 +33,7 @@
             <option value="🟠">🟠</option>
             <option value="🔴">🔴</option>
           </select>
+          <span>Rating</span>
         </li>
         <li class="list-group-item">
           <div id="badge-complete-container" class="d-flex flex-row">
@@ -67,31 +68,33 @@
       </ul>
     </div>
   </div>
-</div>
-<div class="row pt-5">
-  <table id="clause-table" class="table table-dark">
-    {% for clause in clauses %}
-    <tr>
-      <td>
-        <div class="form-check">
-          <input class="form-check-input clause-checkbox" type="checkbox"
-          id="flexCheckDefault" data-clause-id="{{clause.id}}" {{
-          'checked="checked"' if clause.complete }} />
+  <div class="col">
+    <div id="clause-container" class="card">
+      <h3 class="card-header">Clauses</h3>
+      <div id="clause-table">
+        {% for clause in clauses %}
+        <div class="row table-row py-3">
+          <div class="col">
+            <input class="form-check-input clause-checkbox" type="checkbox"
+            id="flexCheckDefault" data-clause-id="{{clause.id}}" {{
+            'checked="checked"' if clause.complete }} />
+          </div>
+          <div class="col">{{clause.description}}</div>
+          <div class="col">
+            <input
+              class="clause-date form-control"
+              type="date"
+              value="{{clause.date|date_format}}"
+              data-clause-id="{{clause.id}}"
+            />
+          </div>
         </div>
-      </td>
-      <td>{{clause.description}}</td>
-      <td>
-        <input
-          class="clause-date form-control w-50"
-          type="date"
-          value="{{clause.date|date_format}}"
-          data-clause-id="{{clause.id}}"
-        />
-      </td>
-    </tr>
-    {% endfor %}
-  </table>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
 </div>
+
 {% endblock %} {% block scripts %}
 <script src="{{url_for('static', filename='js/badge.js')}}"></script>
 {% endblock %}
