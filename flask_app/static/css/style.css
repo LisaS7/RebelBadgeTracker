@@ -112,6 +112,7 @@ textarea {
   padding-top: 2rem;
   padding-bottom: 2rem;
   margin-bottom: 2.5rem;
+  border-radius: 5px;
 }
 
 .table-row {
@@ -156,18 +157,14 @@ textarea {
   padding-bottom: 1rem;
 }
 
+.list-group-item.d-flex {
+  gap: 20px;
+}
+
 /* Clauses */
 #clause-table {
   padding: 2rem;
   background-color: transparent !important;
-}
-
-#badge-complete-container {
-  gap: 45px;
-}
-
-#rating-container {
-  gap: 20px;
 }
 
 /* FOOTER */

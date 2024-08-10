@@ -12,24 +12,24 @@
 </div>
 <div id="badge-table" class="table table-dark">
   <div class="row table-head">
-    <div class="col">Icon</div>
+    <div class="col-auto">Icon</div>
     <div class="col">Name</div>
     <div class="col">Progress</div>
     <div class="col">Rating</div>
-    <div class="col">Notes</div>
+    <div class="col-3">Notes</div>
     <div class="col text-center">Tags</div>
   </div>
 
   {% for badge in context.badges %}
   <div class="row table-row my-3">
-    <div class="col">
+    <div class="col-auto">
       <div class="badge-icon" style="background:{{badge.colour}};">
         <img src={{ url_for('get_image', filename=badge.image) }}/>
       </div>
     </div>
     <div class="col">
       <a href={{ url_for('badge', id=badge.id) }} textContent="{{badge.name}}">
-      <button class="btn btn-outline-light">{{ badge.name }}</button>
+      <button class="btn btn-outline-light btn-lg">{{ badge.name }}</button>
       </a>
     </div>
     <div class="col">
@@ -59,11 +59,11 @@
         <option value="🔴">🔴</option>
       </select>
     </div>
-    <div class="col">
+    <div class="col-3">
       <textarea
         class="mb-4"
         rows="4"
-        cols="25"
+        cols="30"
         data-column-id="notes"
         data-element-id="{{badge.id}}"
       >
@@ -72,7 +72,7 @@
     </div>
     <div class="col">
     {% if badge.complete %}
-    <span class="badge badge-pill badge-info">Complete</span>
+    <span class="badge rounded-pill bg-light text-dark">Complete</span>
     {% endif %}</div>
   </div>
   {% endfor %}
