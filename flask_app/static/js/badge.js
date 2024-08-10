@@ -5,7 +5,6 @@ ratingSelect.value = ratingSelect.dataset.rating;
 // Badge details - rating, date and textarea POST
 const notesText = document.getElementById("notes-text");
 const badgeDate = document.getElementById("badge-date");
-console.log(badgeDate);
 const elements = [ratingSelect, badgeDate, notesText];
 elements.forEach((element) =>
   element.addEventListener("focusout", function (ev) {
@@ -36,6 +35,23 @@ badgeCheckbox.addEventListener("focusout", function (ev) {
     }),
   });
 });
+
+// Tags POST
+const tagButtons = document.getElementsByClassName("tag-button");
+Array.from(tagButtons).forEach((element) =>
+  element.addEventListener("focusout", function (ev) {
+    const field = ev.target.dataset.columnId;
+    const badgeId = ev.target.dataset.badgeId;
+    fetch(`http://127.0.0.1:5000/badge/${badgeId}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: badgeId,
+        [field]: ev.target.checked,
+      }),
+    });
+  })
+);
 
 // Clause checkboxes POST
 // (note that they use target.checked instead of target.value)

@@ -18,7 +18,8 @@
       <ul class="list-group list-group-flush">
         <li class="list-group-item">📘 Volume {{ badge.book }}</li>
         <li class="list-group-item">🏷️ {{ badge.section }}</li>
-        <li id="rating-container" class="list-group-item d-flex flex-row">
+        <li class="list-group-item d-flex flex-row">
+          <span>Rating</span>
           <select
             id="rating-select"
             class="form-select w-25"
@@ -33,24 +34,68 @@
             <option value="🟠">🟠</option>
             <option value="🔴">🔴</option>
           </select>
-          <span>Rating</span>
         </li>
-        <li class="list-group-item">
-          <div id="badge-complete-container" class="d-flex flex-row">
-            <div class="form-check">
-              <label class="fs-5">Badge complete?</label>
-              <input class="form-check-input" type="checkbox"
-              id="badge-checkbox" data-badge-id="{{badge.id}}" {{
-              'checked="checked"' if badge.complete }} />
-            </div>
+        <li class="list-group-item d-flex flex-row">
+          <span>Complete</span>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="badge-checkbox"
+            data-badge-id="{{badge.id}}" {{ 'checked="checked"' if
+            badge.complete }} />
+          </div>
+          <input
+            id="badge-date"
+            class="form-control w-25"
+            type="date"
+            value="{{badge.date|date_format}}"
+            data-badge-id="{{badge.id}}"
+            data-column-id="date"
+          />
+        </li>
+        <li class="list-group-item d-flex flex-row">
+          <span>Tags</span>
+          <div
+            id="badge-tag-group"
+            class="btn-group"
+            role="group"
+            aria-label="Badge tags"
+          >
             <input
-              id="badge-date"
-              class="form-control w-25"
-              type="date"
-              value="{{badge.date|date_format}}"
+              id="startedButton"
+              type="checkbox"
+              class="btn-check tag-button"
               data-badge-id="{{badge.id}}"
-              data-column-id="date"
+              data-column-id="is_started"
+              autocomplete="off"
+              {%
+              if
+              badge.is_started
+              %}
+              checked="checked"
+              {%
+              endif
+              %}
             />
+            <label class="btn btn-outline-info" for="startedButton"
+              >Started</label
+            >
+
+            <input
+              id="nextButton"
+              type="checkbox"
+              class="btn-check tag-button"
+              data-badge-id="{{badge.id}}"
+              data-column-id="is_next"
+              autocomplete="off"
+              {%
+              if
+              badge.is_next
+              %}
+              checked="checked"
+              {%
+              endif
+              %}
+            />
+            <label class="btn btn-outline-info" for="nextButton">Next</label>
           </div>
         </li>
         <li class="list-group-item notes">

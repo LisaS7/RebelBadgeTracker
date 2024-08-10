@@ -15,6 +15,8 @@ class Badge(db.Model):
     clauses_required = db.Column(db.Integer)
     complete = db.Column(db.Boolean)
     date = db.Column(db.DateTime)
+    is_started = db.Column(db.Boolean)
+    is_next = db.Column(db.Boolean)
 
     clauses = db.Relationship("Clause", backref="clause", lazy=True)
 
@@ -23,7 +25,7 @@ class Badge(db.Model):
         if date_str:
             data["date"] = dt.strptime(date_str, "%Y-%m-%d")
 
-        for field in ["rating", "notes", "complete", "date"]:
+        for field in ["rating", "notes", "complete", "date", "is_started", "is_next"]:
             if field in data:
                 setattr(self, field, data[field])
         db.session.commit()
