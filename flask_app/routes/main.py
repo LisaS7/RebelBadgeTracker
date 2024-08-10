@@ -91,7 +91,6 @@ def badge(id):
 @app.route("/clause/<id>", methods=["POST"])
 def clause(id):
     data = request.get_json()
-    print(data)
 
     if "id" not in data:
         return "No id provided", 400
