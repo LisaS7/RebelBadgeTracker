@@ -43,14 +43,14 @@
               'checked="checked"' if badge.complete }} />
             </div>
             <input
-              id="badgeDate"
+              id="badge-date"
               class="form-control w-25"
               type="date"
               value="{{badge.date|date_format}}"
               data-badge-id="{{badge.id}}"
+              data-column-id="date"
             />
           </div>
-          <span>{{ badge.complete }}</span><span>{{ badge.date }}</span>
         </li>
         <li class="list-group-item notes">
           <label>Notes</label>
@@ -82,8 +82,7 @@
       <td>{{clause.description}}</td>
       <td>
         <input
-          id="completeDate"
-          class="form-control w-50"
+          class="clause-date form-control w-50"
           type="date"
           value="{{clause.date|date_format}}"
           data-clause-id="{{clause.id}}"

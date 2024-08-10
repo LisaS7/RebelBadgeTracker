@@ -1,3 +1,4 @@
+from datetime import datetime as dt
 from sqlalchemy.ext.hybrid import hybrid_property
 from flask_app import db
 from flask_app.config import SECTION_COLOURS
@@ -18,6 +19,10 @@ class Badge(db.Model):
     clauses = db.Relationship("Clause", backref="clause", lazy=True)
 
     def save_changes(self, data):
+        date_str = data.get("date")
+        if date_str:
+            data["date"] = dt.strptime(date_str, "%Y-%m-%d")
+
         for field in ["rating", "notes", "complete", "date"]:
             if field in data:
                 setattr(self, field, data[field])
