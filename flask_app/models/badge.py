@@ -41,7 +41,13 @@ class Badge(db.Model):
 
     @hybrid_property
     def completed_clauses(self):
-        return sum([clause.complete for clause in self.clauses if clause.complete])
+        return sum(
+            [
+                clause.complete * clause.factor
+                for clause in self.clauses
+                if clause.complete
+            ]
+        )
 
     @hybrid_property
     def percentage(self):
