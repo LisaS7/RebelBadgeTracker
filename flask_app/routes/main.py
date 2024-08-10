@@ -27,7 +27,8 @@ def get_image(filename):
 
 @app.route("/")
 def home():
-    return render_template("pages/home.html")
+    badges = Badge.query.all()
+    return render_template("pages/home.html", badges=badges)
 
 
 @app.route("/badges")

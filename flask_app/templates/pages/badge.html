@@ -11,6 +11,20 @@
     {{badge.name}}
   </h1>
 </div>
+<div id="progress-bar-container" class="row">
+  <div
+    class="progress"
+    role="progressbar"
+    aria-label="Basic example"
+    aria-valuenow="{{badge.percentage}}"
+    aria-valuemin="0"
+    aria-valuemax="100"
+  >
+    <div class="progress-bar" style="width: {{ badge.percentage }}%">
+      {{badge.percentage|percentage_format}}
+    </div>
+  </div>
+</div>
 <div id="badge-detail-container" class="row justify-content-evenly">
   <div class="col">
     <div id="badge-details" class="card" data-badge-id="{{badge.id}}">

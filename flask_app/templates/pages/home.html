@@ -1,3 +1,44 @@
 {% extends 'base.html' %} {% block content %}
-<h2>Home page under construction!</h2>
+<h2>Overview</h2>
+<div class="row">
+  <div class="col d-flex justify-content-evenly">
+    <div class="card">
+      <div class="card-header">In Progress</div>
+      <ul class="list-group">
+        {% for badge in badges if badge.is_started %}
+        <li class="list-group-item border-0">
+          <a href={{ url_for('badge', id=badge.id) }}
+          textContent="{{badge.name}}">
+          <button class="btn btn-outline-light btn-lg">{{ badge.name }}</button></a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-header">Up Next</div>
+      <ul class="list-group">
+        {% for badge in badges if badge.is_next %}
+        <li class="list-group-item border-0">
+          <a href={{ url_for('badge', id=badge.id) }}
+          textContent="{{badge.name}}">
+          <button class="btn btn-outline-light btn-lg">{{ badge.name }}</button></a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="card">
+        <div class="card-header">Shopping List</div>
+        <ul class="list-group">
+            <p class="fs-6">Badges which are completed but not purchased</p>
+          {% for badge in badges if badge.complete and not badge.is_purchased %}
+          <li class="list-group-item border-0">
+            <a href={{ url_for('badge', id=badge.id) }}
+            textContent="{{badge.name}}">
+            <button class="btn btn-outline-light btn-lg">{{ badge.name }}</button></a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+  </div>
+</div>
 {% endblock %}
