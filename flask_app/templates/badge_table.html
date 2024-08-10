@@ -71,9 +71,18 @@
       >
     </div>
     <div class="col">
-    {% if badge.complete %}
+    {% if badge.is_next %}
+    <span class="badge rounded-pill bg-light text-dark">Next</span>
+    {% endif %}
+    {% if badge.is_started %}
+    <span class="badge rounded-pill bg-light text-dark">Started</span>
+    {% endif %}{% if badge.complete %}
     <span class="badge rounded-pill bg-light text-dark">Complete</span>
-    {% endif %}</div>
+    {% endif %}
+    {% if badge.is_purchased %}
+    <span class="badge rounded-pill bg-light text-dark">Purchased</span>
+    {% endif %}
+  </div>
   </div>
   {% endfor %}
 </div>

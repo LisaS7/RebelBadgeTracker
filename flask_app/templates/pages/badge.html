@@ -17,7 +17,11 @@
       <h3 class="card-header">Details</h3>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">📘 Volume {{ badge.book }}</li>
-        <li class="list-group-item">🏷️ {{ badge.section }}</li>
+        <li class="list-group-item">
+          <span class="badge" style="background: {{ badge.colour}}"
+            >{{ badge.section }}</span
+          >
+        </li>
         <li class="list-group-item d-flex flex-row">
           <span>Rating</span>
           <select
@@ -52,7 +56,7 @@
           />
         </li>
         <li class="list-group-item d-flex flex-row">
-          <span>Tags</span>
+          <span>🏷️ Tags</span>
           <div
             id="badge-tag-group"
             class="btn-group"
@@ -96,6 +100,26 @@
               %}
             />
             <label class="btn btn-outline-info" for="nextButton">Next</label>
+
+            <input
+              id="nextButton"
+              type="checkbox"
+              class="btn-check tag-button"
+              data-badge-id="{{badge.id}}"
+              data-column-id="is_purchased"
+              autocomplete="off"
+              {%
+              if
+              badge.is_purchased
+              %}
+              checked="checked"
+              {%
+              endif
+              %}
+            />
+            <label class="btn btn-outline-info" for="nextButton"
+              >Purchased</label
+            >
           </div>
         </li>
         <li class="list-group-item notes">
