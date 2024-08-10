@@ -35,11 +35,20 @@
           </select>
         </li>
         <li class="list-group-item">
-          <div class="form-check">
-            <label>Badge complete?</label>
-            <input class="form-check-input" type="checkbox" id="badge-checkbox"
-            data-badge-id="{{badge.id}}" {{ 'checked="checked"' if
-            badge.complete }} />
+          <div id="badge-complete-container" class="d-flex flex-row">
+            <div class="form-check">
+              <label class="fs-5">Badge complete?</label>
+              <input class="form-check-input" type="checkbox"
+              id="badge-checkbox" data-badge-id="{{badge.id}}" {{
+              'checked="checked"' if badge.complete }} />
+            </div>
+            <input
+              id="badgeDate"
+              class="form-control w-25"
+              type="date"
+              value="{{badge.date|date_format}}"
+              data-badge-id="{{badge.id}}"
+            />
           </div>
           <span>{{ badge.complete }}</span><span>{{ badge.date }}</span>
         </li>

@@ -144,6 +144,10 @@ textarea {
   box-shadow: 0px 0px 23px 12px rgba(127, 1, 81, 0.93);
 }
 
+#badge-complete-container {
+  gap: 45px;
+}
+
 /* FOOTER */
 footer {
   background: #2c464e;

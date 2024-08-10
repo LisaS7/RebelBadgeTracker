@@ -17,6 +17,7 @@
     <div class="col">Progress</div>
     <div class="col">Rating</div>
     <div class="col">Notes</div>
+    <div class="col text-center">Tags</div>
   </div>
 
   {% for badge in context.badges %}
@@ -45,7 +46,7 @@
     </div>
     <div class="col">
       <select
-        class="ratingSelect form-select"
+        class="ratingSelect form-select w-50 m-auto"
         data-column-id="rating"
         data-element-id="{{badge.id}}"
         data-element-value="{{badge.rating}}"
@@ -69,6 +70,10 @@
 {{badge.notes}}</textarea
       >
     </div>
+    <div class="col">
+    {% if badge.complete %}
+    <span class="badge badge-pill badge-info">Complete</span>
+    {% endif %}</div>
   </div>
   {% endfor %}
 </div>
