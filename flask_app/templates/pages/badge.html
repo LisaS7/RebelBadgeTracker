@@ -11,13 +11,20 @@
       {{badge.name}}
     </h1>
   </div>
-  <div class="col">
-    <div id="badge-details" class="card">
+</div>
+<div class="row">
+  <div class="col d-flex flex-row-reverse">
+    <div id="badge-details" class="card w-50" data-badge-id="{{badge.id}}">
       <ul class="list-group list-group-flush">
         <li class="list-group-item">Volume {{ badge.book }}</li>
         <li class="list-group-item">{{ badge.section }}</li>
         <li class="list-group-item">
-          <select class="ratingSelect form-select w-25" data-column-id="rating">
+          <select
+            id="rating-select"
+            class="form-select w-25"
+            data-column-id="rating"
+            data-rating="{{badge.rating}}"
+          >
             <option value="None">None</option>
             <option value="✖️">✖️</option>
             <option value="🟢">🟢</option>
@@ -25,6 +32,15 @@
             <option value="🟠">🟠</option>
             <option value="🔴">🔴</option>
           </select>
+        </li>
+        <li class="list-group-item">
+          <div class="form-check">
+            <label>Badge complete?</label>
+            <input class="form-check-input badge-checkbox" type="checkbox"
+            id="flexCheckDefault" data-badge-id="{{badge.id}}" {{
+            'checked="checked"' if badge.complete }} />
+          </div>
+          <span>{{ badge.complete }}</span><span>{{ badge.date }}</span>
         </li>
         <li class="list-group-item notes">
           <label>Notes</label>
@@ -47,9 +63,9 @@
     <tr>
       <td>
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="flexCheckDefault"
-          data-clause-id="{{clause.id}}" {{ 'checked="checked"' if
-          clause.complete }} />
+          <input class="form-check-input clause-checkbox" type="checkbox"
+          id="flexCheckDefault" data-clause-id="{{clause.id}}" {{
+          'checked="checked"' if clause.complete }} />
         </div>
       </td>
       <td>{{clause.description}}</td>
@@ -67,59 +83,5 @@
   </table>
 </div>
 {% endblock %} {% block scripts %}
-<script>
-  const ratingSelect = document.getElementsByClassName("ratingSelect");
-
-  Array.from(ratingSelect).forEach((element) => {
-    element.value = "{{badge.rating}}";
-  });
-
-  const badgeDetails = document.getElementById("badge-details");
-  badgeDetails.addEventListener("focusout", (ev) => {
-    const newValue = ev.target.value;
-    const badgeId = "{{badge.id}}";
-
-    if ("{{badge.rating}}" !== newValue && "{{badge.notes}}" !== newValue) {
-      fetch(`http://127.0.0.1:5000/badge/${badgeId}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: badgeId,
-          [ev.target.dataset.columnId]: newValue,
-        }),
-      });
-    }
-  });
-
-  const checkboxes = document.querySelectorAll("input[type=checkbox]");
-  Array.from(checkboxes).forEach((element) =>
-    element.addEventListener("change", function (ev) {
-      const clauseId = ev.target.dataset.clauseId;
-      fetch(`http://127.0.0.1:5000/clause/${clauseId}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: clauseId,
-          ["complete"]: ev.target.checked,
-        }),
-      });
-    })
-  );
-
-  const datePickers = document.querySelectorAll("input[type=date]");
-  Array.from(datePickers).forEach((element) =>
-    element.addEventListener("change", function (ev) {
-      const clauseId = ev.target.dataset.clauseId;
-      fetch(`http://127.0.0.1:5000/clause/${clauseId}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: clauseId,
-          ["date"]: ev.target.value,
-        }),
-      });
-    })
-  );
-</script>
-
+<script src="{{url_for('static', filename='js/badge.js')}}"></script>
 {% endblock %}
