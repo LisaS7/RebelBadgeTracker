@@ -1,10 +1,16 @@
 import plotly.graph_objects as go
-from plotly.offline import plot
-
-colours = ["#80659c", "#0da96f", "#af3752", "#0c618d", "#e66310", "#c6ca51"]
+from .filters import adjust_colour
 
 
 def make_sections_chart(badges):
+
+    colours = []
+    for badge in badges:
+        if badge.complete:
+            colours.append(badge.colour)
+        else:
+            darker = adjust_colour(badge.colour, 0.5)
+            colours.append(darker)
 
     fig = go.Figure(
         data=[
@@ -12,13 +18,15 @@ def make_sections_chart(badges):
                 labels=[badge.name for badge in badges],
                 values=[1 for badge in badges],
                 pull=[0.2 for badge in badges],
+                title="Completed badges",
                 textinfo="none",
             )
         ]
     )
 
-    fig.update_traces(hole=0.5, marker_colors=[badge.colour for badge in badges])
+    fig.update_traces(hole=0.5, marker_colors=colours)
     fig.update_layout(
+        font_color="white",
         showlegend=False,
         plot_bgcolor="rgba(0, 0, 0, 0)",
         paper_bgcolor="rgba(0, 0, 0, 0)",
