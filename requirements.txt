@@ -7,9 +7,15 @@ greenlet==3.0.3
 itsdangerous==2.2.0
 Jinja2==3.1.4
 MarkupSafe==2.1.5
+numpy==2.0.1
 packaging==24.1
+pandas==2.2.2
 plotly==5.23.0
+python-dateutil==2.9.0.post0
+pytz==2024.1
+six==1.16.0
 SQLAlchemy==2.0.32
 tenacity==9.0.0
 typing_extensions==4.12.2
+tzdata==2024.1
 Werkzeug==3.0.3

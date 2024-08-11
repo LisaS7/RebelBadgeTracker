@@ -3,6 +3,7 @@ from flask_app import app
 from flask_app.models.badge import Badge
 from flask_app.models.clause import Clause
 from flask_app.config import SECTION_COLOURS
+from flask_app.utils.sections_chart import make_sections_chart
 
 
 # Add sections to context for use in navbar
@@ -28,7 +29,8 @@ def get_image(filename):
 @app.route("/")
 def home():
     badges = Badge.query.all()
-    return render_template("pages/home.html", badges=badges)
+    chart = make_sections_chart(badges)
+    return render_template("pages/home.html", badges=badges, chart=chart)
 
 
 @app.route("/badges")
