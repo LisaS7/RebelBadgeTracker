@@ -2,6 +2,8 @@
 
 Note - you need python installed before starting installation.
 
+Start by cloning this repo to your computer.
+
 In the terminal, navigate to the rebel badge tracker directory.
 
 ```
