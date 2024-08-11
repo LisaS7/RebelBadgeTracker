@@ -1,6 +1,9 @@
 {% extends 'base.html' %} {% block content %}
 <h2>Overview</h2>
-<div class="row">{{chart|safe}}</div>
+<div class="row"><div class="col-5">{{chart|safe}}</div>
+<div class="col-4">
+
+</div></div>
 <div class="row">
   <div class="col d-flex justify-content-evenly">
     <div class="card">
@@ -10,7 +13,7 @@
         <li class="list-group-item border-0">
           <a href={{ url_for('badge', id=badge.id) }}
           textContent="{{badge.name}}">
-          <button class="btn btn-outline-light btn-lg">{{ badge.name }}</button></a>
+          <button class="btn btn-outline-light btn-lg" style="color: {{badge.colour}};">{{ badge.name }}</button></a>
         </li>
         {% endfor %}
       </ul>
@@ -22,7 +25,7 @@
         <li class="list-group-item border-0">
           <a href={{ url_for('badge', id=badge.id) }}
           textContent="{{badge.name}}">
-          <button class="btn btn-outline-light btn-lg">{{ badge.name }}</button></a>
+          <button class="btn btn-outline-light btn-lg" style="color: {{badge.colour}};">{{ badge.name }}</button></a>
         </li>
         {% endfor %}
       </ul>
@@ -35,7 +38,7 @@
           <li class="list-group-item border-0">
             <a href={{ url_for('badge', id=badge.id) }}
             textContent="{{badge.name}}">
-            <button class="btn btn-outline-light btn-lg">{{ badge.name }}</button></a>
+            <button class="btn btn-outline-light btn-lg" style="color: {{badge.colour}};">{{ badge.name }}</button></a>
           </li>
           {% endfor %}
         </ul>
