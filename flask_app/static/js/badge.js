@@ -53,6 +53,43 @@ Array.from(tagButtons).forEach((element) =>
   })
 );
 
+// Edit link display input field
+const editBtn = document.getElementById("edit-link-btn");
+const saveBtn = document.getElementById("save-link-btn");
+const inputField = document.getElementById("input-link");
+const displayLink = document.getElementById("link-text");
+
+inputField.style.display = "none";
+saveBtn.style.display = "none";
+
+editBtn.addEventListener("click", function (ev) {
+  if (inputField.style.display === "none") {
+    inputField.style.display = "block";
+    saveBtn.style.display = "block";
+    displayLink.style.display = "none";
+  } else {
+    inputField.style.display = "none";
+    saveBtn.style.display = "none";
+    displayLink.style.display = "block";
+  }
+});
+
+saveBtn.addEventListener("click", function (ev) {
+  const badgeId = saveBtn.dataset.badgeId;
+  fetch(`http://127.0.0.1:5000/badge/${badgeId}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      id: badgeId,
+      ["link"]: inputField.value,
+    }),
+  });
+  displayLink.textContent = inputField.value;
+  inputField.style.display = "none";
+  saveBtn.style.display = "none";
+  displayLink.style.display = "block";
+});
+
 // Clause checkboxes POST
 // (note that they use target.checked instead of target.value)
 const checkboxes = document.getElementsByClassName("clause-checkbox");

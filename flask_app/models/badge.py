@@ -1,7 +1,7 @@
 from datetime import datetime as dt
 from sqlalchemy.ext.hybrid import hybrid_property
 from flask_app import db
-from flask_app.config import SECTION_COLOURS
+from flask_app.config import SECTION_COLOURS, EDITABLE_FIELDS
 
 
 class Badge(db.Model):
@@ -12,6 +12,7 @@ class Badge(db.Model):
     book = db.Column(db.Integer)
     rating = db.Column(db.String(20))
     notes = db.Column(db.String(500))
+    link = db.Column(db.String(200))
     clauses_required = db.Column(db.Integer)
     complete = db.Column(db.Boolean)
     date = db.Column(db.DateTime)
@@ -26,15 +27,7 @@ class Badge(db.Model):
         if date_str:
             data["date"] = dt.strptime(date_str, "%Y-%m-%d")
 
-        for field in [
-            "rating",
-            "notes",
-            "complete",
-            "date",
-            "is_started",
-            "is_next",
-            "is_purchased",
-        ]:
+        for field in EDITABLE_FIELDS:
             if field in data:
                 setattr(self, field, data[field])
         db.session.commit()
