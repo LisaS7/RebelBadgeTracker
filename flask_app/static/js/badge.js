@@ -85,6 +85,7 @@ saveBtn.addEventListener("click", function (ev) {
     }),
   });
   displayLink.textContent = inputField.value;
+  document.getElementById("badge-link").setAttribute("href", inputField.value);
   inputField.style.display = "none";
   saveBtn.style.display = "none";
   displayLink.style.display = "block";

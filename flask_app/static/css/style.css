@@ -41,6 +41,11 @@ body {
   border-radius: 5px;
 }
 
+a {
+  color: white;
+  text-decoration: none;
+}
+
 /* INPUT ELEMENTS */
 
 select {

@@ -157,12 +157,14 @@
           </div>
         </li>
         <li class="list-group-item d-flex flex-row">
-          <div class="col-4">
+          <div class="col-2">
             <span>Link</span>
           </div>
           <div class="col d-flex flex-row">
-            <input id="input-link" type="text" />
-            <span id="link-text">{{badge.link}}</span>
+            <input id="input-link" type="text" value="{{badge.link}}" />
+            <a id="badge-link" href="{{badge.link}}"
+              ><span id="link-text" class="fs-6">{{badge.link}}</span></a
+            >
             <img
               id="save-link-btn"
               src="{{ url_for('static', filename='/icons/check.svg') }}"
