@@ -7,6 +7,15 @@ SECTION_COLOURS = {
     "Grown Up": "#fff5b5",
 }
 
+SECTION_PATCHES = {
+    "Wellness": 5,
+    "Global": 6,
+    "Wild": 5,
+    "Creative": 5,
+    "Self Aware": 3,
+    "Grown Up": 7,
+}
+
 EDITABLE_FIELDS = [
     "rating",
     "notes",

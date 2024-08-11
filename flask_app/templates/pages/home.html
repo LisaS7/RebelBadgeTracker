@@ -1,9 +1,19 @@
 {% extends 'base.html' %} {% block content %}
 <h2>Overview</h2>
-<div class="row"><div class="col-5">{{chart|safe}}</div>
-<div class="col-4">
-
-</div></div>
+<div class="row">
+  <div class="col-5">{{section_chart|safe}}</div>
+  <div class="col">
+  <h3>Section Patch Progress</h3>
+    {% for section in patch_data %}
+    <div class="row d-flex flex-row">
+      <p class="w-25">{{section}}</p>
+      {% for colour in patch_data[section] %}
+        <div class="section-square" style="background: {{colour}};"></div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
 <div class="row">
   <div class="col d-flex justify-content-evenly">
     <div class="card">

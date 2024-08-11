@@ -2,8 +2,9 @@ from flask import render_template, request, redirect, url_for
 from flask_app import app
 from flask_app.models.badge import Badge
 from flask_app.models.clause import Clause
-from flask_app.config import SECTION_COLOURS
-from flask_app.utils.sections_chart import make_sections_chart
+from flask_app.config import SECTION_COLOURS, SECTION_PATCHES
+from flask_app.utils.charts import sections_chart
+from flask_app.utils.filters import adjust_colour
 
 
 # Add sections to context for use in navbar
@@ -30,8 +31,24 @@ def get_image(filename):
 def home():
     badges = Badge.query.all()
     badges = [badge for badge in badges if badge.rating != "✖️"]
-    chart = make_sections_chart(badges)
-    return render_template("pages/home.html", badges=badges, chart=chart)
+    s_chart = sections_chart(badges)
+
+    patch_data = {
+        section: [
+            badge.colour
+            for badge in badges
+            if badge.complete and badge.section == section
+        ]
+        for section in SECTION_PATCHES
+    }
+
+    for section, count in SECTION_PATCHES.items():
+        while len(patch_data[section]) < count:
+            patch_data[section].append(adjust_colour(SECTION_COLOURS[section], 0.4))
+
+    return render_template(
+        "pages/home.html", badges=badges, section_chart=s_chart, patch_data=patch_data
+    )
 
 
 @app.route("/badges")
