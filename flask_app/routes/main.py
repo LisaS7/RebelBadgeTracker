@@ -29,6 +29,7 @@ def get_image(filename):
 @app.route("/")
 def home():
     badges = Badge.query.all()
+    badges = [badge for badge in badges if badge.rating != "✖️"]
     chart = make_sections_chart(badges)
     return render_template("pages/home.html", badges=badges, chart=chart)
 
