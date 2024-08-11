@@ -189,6 +189,12 @@ textarea {
 }
 
 /* HOME PAGE */
+
+.home-header {
+  margin-bottom: 3rem;
+  font-weight: 700;
+}
+
 .section-square {
   height: 20px;
   width: 20px;

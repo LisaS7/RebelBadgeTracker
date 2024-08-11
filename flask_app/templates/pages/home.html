@@ -1,9 +1,8 @@
 {% extends 'base.html' %} {% block content %}
-<h2>Overview</h2>
 <div class="row">
   <div class="col-5">{{section_chart|safe}}</div>
   <div class="col">
-  <h3>Section Patch Progress</h3>
+  <h3 class="home-header">Section Patch Progress</h3>
     {% for section in patch_data %}
     <div class="row d-flex flex-row">
       <p class="w-25">{{section}}</p>
