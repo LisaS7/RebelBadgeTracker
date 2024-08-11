@@ -18,7 +18,7 @@ source venv/bin/activate
 Install requirments
 
 ```
-pip install -r requirements.txtß
+pip install -r requirements.txt
 ```
 
 Change directory to flask_app and run the flask server
