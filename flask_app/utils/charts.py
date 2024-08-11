@@ -2,7 +2,7 @@ import plotly.graph_objects as go
 from .filters import adjust_colour
 
 
-def make_sections_chart(badges):
+def sections_chart(badges):
 
     colours = []
     for badge in badges:
@@ -30,6 +30,7 @@ def make_sections_chart(badges):
         showlegend=False,
         plot_bgcolor="rgba(0, 0, 0, 0)",
         paper_bgcolor="rgba(0, 0, 0, 0)",
+        margin=dict(l=20, r=20, t=20, b=50),
     )
 
     return fig.to_html()
