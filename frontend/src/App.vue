@@ -19,7 +19,6 @@ onMounted(() => {
     const section_data = badges.value.map((badge) => badge.section);
     sections.value = [...new Set(section_data)];
   });
-  loaded.value = true;
 });
 </script>
 
