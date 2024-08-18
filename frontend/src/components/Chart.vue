@@ -14,7 +14,6 @@ import { Doughnut } from "vue-chartjs";
 import { colorShade } from "@/utils/functions";
 
 const props = defineProps(["badges"]);
-// props.badges.forEach((badge) => console.log(badge.name));
 
 const labels = props.badges.map((badge) => badge.name);
 const values = props.badges.map((badge) => 1);
@@ -42,7 +41,7 @@ const data = {
 const options = {
   responsive: true,
   maintainAspectRatio: false,
-  elements: { point: { borderWidth: 0 } },
+  elements: { arc: { borderWidth: 0 } },
   plugins: { legend: { display: false } },
 };
 

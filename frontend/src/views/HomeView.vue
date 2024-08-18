@@ -19,7 +19,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="row">
+  <div class="row my-5">
     <div class="col-5">
       <BadgeChart v-if="loaded" :badges="badges" />
     </div>
