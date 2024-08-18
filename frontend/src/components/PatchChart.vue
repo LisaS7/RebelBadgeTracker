@@ -1,7 +1,15 @@
 <script setup>
+import { ref, onMounted } from "vue";
 import { colorShade } from "@/utils/functions";
 
-const props = defineProps(["patchData"]);
+const patches = ref({});
+let patchData = {};
+
+async function fetchData() {
+  const response = await fetch("http://127.0.0.1:5000/patches");
+  const data_json = await response.json();
+  patchData = data_json["patches"];
+}
 
 function section_colours(data) {
   let patches = {};
@@ -19,7 +27,10 @@ function section_colours(data) {
   return patches;
 }
 
-const patches = section_colours(props.patchData);
+onMounted(async () => {
+  await fetchData();
+  patches.value = section_colours(patchData);
+});
 </script>
 
 <template>
