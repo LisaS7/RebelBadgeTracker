@@ -3,9 +3,8 @@ import { ref, onMounted } from "vue";
 import BadgeChart from "@/components/BadgeChart.vue";
 import PatchChart from "@/components/PatchChart.vue";
 
-const badges = ref([]);
-const patchData = ref({});
-const loaded = ref(false);
+const props = defineProps(["badges"]);
+
 const in_progress = ref([]);
 const up_next = ref([]);
 const shopping_list = ref([]);
@@ -14,28 +13,25 @@ async function fetchData() {
   const response = await fetch("http://127.0.0.1:5000/");
   const data_json = await response.json();
   patchData.value = data_json["patches"];
-  badges.value = data_json["badges"];
-  loaded.value = true;
-
-  in_progress.value = badges.value.filter((badge) => badge.complete === false);
-  up_next.value = badges.value.filter((badge) => badge.is_next === true);
-  shopping_list.value = badges.value.filter(
-    (badge) => badge.complete === true && badge.is_purchased === false
-  );
 }
 
 onMounted(async () => {
   await fetchData();
+  in_progress.value = props.badges.filter((badge) => badge.complete === false);
+  up_next.value = props.badges.filter((badge) => badge.is_next === true);
+  shopping_list.value = props.badges.filter(
+    (badge) => badge.complete === true && badge.is_purchased === false
+  );
 });
 </script>
 
 <template>
   <div class="row my-5">
     <div class="col-5">
-      <BadgeChart v-if="loaded" :badges="badges" />
+      <BadgeChart v-if="badges.length" :badges="badges" />
     </div>
     <div class="col">
-      <PatchChart v-if="loaded" :patchData="patchData" />
+      <PatchChart />
     </div>
   </div>
   <div class="row">

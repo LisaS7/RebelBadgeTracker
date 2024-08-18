@@ -11,11 +11,10 @@ def get_image(filename):
     return "./static/badge_images" + filename
 
 
-@app.route("/")
+@app.route("/patches")
 def home():
     badges = Badge.query.all()
     badges = [badge for badge in badges if badge.rating != "✖️"]
-    json_badges = list(map(lambda x: x.to_json(), badges))
 
     patch_data = {
         section: [
@@ -30,7 +29,7 @@ def home():
         while len(patch_data[section]) < count:
             patch_data[section].append(f"dark_{SECTION_COLOURS[section]}")
 
-    return jsonify({"badges": json_badges, "patches": patch_data})
+    return jsonify({"patches": patch_data})
 
 
 @app.route("/badges")

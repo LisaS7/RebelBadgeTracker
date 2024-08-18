@@ -25,7 +25,7 @@ onMounted(() => {
 
 <template>
   <Navbar v-if="loaded" />
-  <RouterView />
+  <RouterView v-if="loaded" :badges="badges" />
 </template>
 
 <style scoped></style>
