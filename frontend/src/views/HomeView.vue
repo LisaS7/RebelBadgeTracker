@@ -5,9 +5,13 @@ import { colorShade } from "@/utils/functions";
 
 const badges = ref([]);
 const loaded = ref(false);
-let patches = {};
+const patches = ref({});
+const in_progress = ref([]);
+const up_next = ref([]);
+const shopping_list = ref([]);
 
 function section_colours(data) {
+  let patches = {};
   for (const patch in data) {
     patches[patch] = data[patch].map((colour) => {
       if (colour.substring(0, 4) === "dark") {
@@ -19,6 +23,7 @@ function section_colours(data) {
       }
     });
   }
+  return patches;
 }
 
 async function fetchData() {
@@ -27,7 +32,13 @@ async function fetchData() {
   const patchData = data_json["patches"];
   badges.value = data_json["badges"];
   loaded.value = true;
-  section_colours(patchData);
+
+  patches.value = section_colours(patchData);
+  in_progress.value = badges.value.filter((badge) => badge.complete === false);
+  up_next.value = badges.value.filter((badge) => badge.is_next === true);
+  shopping_list.value = badges.value.filter(
+    (badge) => badge.complete === true && badge.is_purchased === false
+  );
 }
 
 onMounted(async () => {
@@ -58,18 +69,23 @@ onMounted(async () => {
   </div>
   <div class="row">
     <div class="col d-flex justify-content-evenly">
-      <div class="card">
+      <div class="card w-25">
         <div class="card-header">In Progress</div>
-        <ul class="list-group"></ul>
+        <ul class="list-group">
+          <li v-for="badge in in_progress">{{ badge.name }}</li>
+        </ul>
       </div>
-      <div class="card">
+      <div class="card w-25">
         <div class="card-header">Up Next</div>
-        <ul class="list-group"></ul>
+        <ul class="list-group">
+          <li v-for="badge in up_next">{{ badge.name }}</li>
+        </ul>
       </div>
-      <div class="card">
+      <div class="card w-25">
         <div class="card-header">Shopping List</div>
         <ul class="list-group">
           <p class="fs-6">Badges which are completed but not purchased</p>
+          <li v-for="badge in shopping_list">{{ badge.name }}</li>
         </ul>
       </div>
     </div>
@@ -81,5 +97,9 @@ onMounted(async () => {
   height: 20px;
   width: 20px;
   margin: 10px;
+}
+
+.list-group {
+  padding: 2rem;
 }
 </style>
