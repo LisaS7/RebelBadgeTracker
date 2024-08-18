@@ -70,4 +70,7 @@ class Badge(db.Model):
             "progress": self.percentage,
             "complete": self.complete,
             "date": self.date,
+            "is_started": self.is_started,
+            "is_next": self.is_next,
+            "is_purchased": self.is_purchased,
         }
