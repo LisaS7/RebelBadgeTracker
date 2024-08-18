@@ -5,18 +5,11 @@ import PatchChart from "@/components/PatchChart.vue";
 
 const props = defineProps(["badges"]);
 
-const in_progress = ref([]);
+let in_progress = ref([]);
 const up_next = ref([]);
 const shopping_list = ref([]);
 
-async function fetchData() {
-  const response = await fetch("http://127.0.0.1:5000/");
-  const data_json = await response.json();
-  patchData.value = data_json["patches"];
-}
-
 onMounted(async () => {
-  await fetchData();
   in_progress.value = props.badges.filter((badge) => badge.complete === false);
   up_next.value = props.badges.filter((badge) => badge.is_next === true);
   shopping_list.value = props.badges.filter(
@@ -28,13 +21,13 @@ onMounted(async () => {
 <template>
   <div class="row my-5">
     <div class="col-5">
-      <BadgeChart v-if="badges.length" :badges="badges" />
+      <BadgeChart :badges="badges" />
     </div>
     <div class="col">
       <PatchChart />
     </div>
   </div>
-  <div class="row">
+  <div v-if="badges" class="row">
     <div class="col d-flex justify-content-evenly">
       <div class="card w-25">
         <div class="card-header">In Progress</div>
