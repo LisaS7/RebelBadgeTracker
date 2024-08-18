@@ -1,39 +1,22 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import BadgeChart from "@/components/Chart.vue";
-import { colorShade } from "@/utils/functions";
+import BadgeChart from "@/components/BadgeChart.vue";
+import PatchChart from "@/components/PatchChart.vue";
 
 const badges = ref([]);
+const patchData = ref({});
 const loaded = ref(false);
-const patches = ref({});
 const in_progress = ref([]);
 const up_next = ref([]);
 const shopping_list = ref([]);
 
-function section_colours(data) {
-  let patches = {};
-  for (const patch in data) {
-    patches[patch] = data[patch].map((colour) => {
-      if (colour.substring(0, 4) === "dark") {
-        const colour_hex = colour.substring(5);
-        const darker = colorShade(colour_hex, -150);
-        return darker;
-      } else {
-        return colour;
-      }
-    });
-  }
-  return patches;
-}
-
 async function fetchData() {
   const response = await fetch("http://127.0.0.1:5000/");
   const data_json = await response.json();
-  const patchData = data_json["patches"];
+  patchData.value = data_json["patches"];
   badges.value = data_json["badges"];
   loaded.value = true;
 
-  patches.value = section_colours(patchData);
   in_progress.value = badges.value.filter((badge) => badge.complete === false);
   up_next.value = badges.value.filter((badge) => badge.is_next === true);
   shopping_list.value = badges.value.filter(
@@ -52,19 +35,7 @@ onMounted(async () => {
       <BadgeChart v-if="loaded" :badges="badges" />
     </div>
     <div class="col">
-      <h3 class="home-header">Section Patch Progress</h3>
-      <div v-for="(colours, section) in patches" class="row d-flex flex-row">
-        <p class="w-25">{{ section }}</p>
-        <div
-          v-for="colour in colours"
-          class="section-square"
-          :style="
-            colour
-              ? `background: ${colour};`
-              : `background: ${colorShade(colour, -100)};`
-          "
-        ></div>
-      </div>
+      <PatchChart v-if="loaded" :patchData="patchData" />
     </div>
   </div>
   <div class="row">
@@ -93,12 +64,6 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-.section-square {
-  height: 20px;
-  width: 20px;
-  margin: 10px;
-}
-
 .list-group {
   padding: 2rem;
 }
