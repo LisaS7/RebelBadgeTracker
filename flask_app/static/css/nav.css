@@ -1,21 +1,3 @@
-nav {
-  background: var(--rebel-pink);
-  gap: 4rem;
-}
-
-nav > .navbar-brand > img {
-  margin-left: 6rem;
-  width: 6rem;
-}
-nav ul {
-  gap: 3rem;
-  position: relative;
-}
-
-.nav-item > a > img {
-  width: 2rem;
-}
-
 li.nav-item {
   padding: 1rem;
   transition: 0.3s;

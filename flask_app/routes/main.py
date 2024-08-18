@@ -5,20 +5,6 @@ from flask_app.models.clause import Clause
 from flask_app.config import SECTION_COLOURS, SECTION_PATCHES
 
 
-# Add sections to context for use in navbar
-@app.context_processor
-def set_global_html_variable_values():
-
-    sections = [badge.section for badge in Badge.query.all()]
-    unique_sections = list(dict.fromkeys(sections))
-
-    badges = Badge.query.all()
-    badges.sort(key=lambda x: x.name)
-
-    template_config = {"section_names": unique_sections, "badges": badges}
-    return template_config
-
-
 # Render images from SVGs
 @app.route("/static/badge_images/<filename>")
 def get_image(filename):

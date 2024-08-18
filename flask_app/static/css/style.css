@@ -169,10 +169,6 @@ textarea {
   gap: 10rem;
 }
 
-.list-group {
-  padding: 2rem;
-}
-
 .list-group-item {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -193,12 +189,6 @@ textarea {
 .home-header {
   margin-bottom: 3rem;
   font-weight: 700;
-}
-
-.section-square {
-  height: 20px;
-  width: 20px;
-  margin: 10px;
 }
 
 /* FOOTER */
