@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, jsonify
 from flask_app import app
 from flask_app.models.badge import Badge
 from flask_app.models.clause import Clause
@@ -53,15 +53,9 @@ def home():
 
 @app.route("/badges")
 def all_badges():
-    search = request.args.get("search")
-
-    if search:
-        badges = Badge.query.filter(Badge.name.contains(search)).all()
-    else:
-        badges = Badge.query.all()
-
-    context = {"badges": badges, "search": search}
-    return render_template("pages/badges.html", context=context)
+    badges = Badge.query.all()
+    json_badges = list(map(lambda x: x.to_json(), badges))
+    return jsonify(json_badges)
 
 
 @app.route("/section/<choice>")

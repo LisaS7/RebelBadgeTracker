@@ -1,3 +1,5 @@
+SVG_PATH = "./static/badge_images/"
+
 SECTION_COLOURS = {
     "Wellness": "#AFF8D6",
     "Global": "#ACE7FF",

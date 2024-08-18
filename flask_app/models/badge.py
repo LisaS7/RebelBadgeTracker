@@ -1,7 +1,7 @@
 from datetime import datetime as dt
 from sqlalchemy.ext.hybrid import hybrid_property
 from flask_app import db
-from flask_app.config import SECTION_COLOURS, EDITABLE_FIELDS
+from flask_app.config import SECTION_COLOURS, EDITABLE_FIELDS, SVG_PATH
 
 
 class Badge(db.Model):
@@ -52,3 +52,22 @@ class Badge(db.Model):
 
     def __repr__(self):
         return f"<Badge {self.id} - {self.name}>"
+
+    def to_json(self):
+
+        with open(SVG_PATH + self.image) as f:
+            svg = f.read()
+
+        return {
+            "id": self.id,
+            "name": self.name,
+            "image": svg,
+            "section": self.section,
+            "colour": self.colour,
+            "book": self.book,
+            "rating": self.rating,
+            "notes": self.notes,
+            "progress": self.percentage,
+            "complete": self.complete,
+            "date": self.date,
+        }
