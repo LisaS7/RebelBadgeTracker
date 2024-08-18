@@ -1,13 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap");
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  font-weight: normal;
-}
-
 :root {
   --rebel-dark-teal: #01617f;
   --rebel-light-blue: #89cfe5;
