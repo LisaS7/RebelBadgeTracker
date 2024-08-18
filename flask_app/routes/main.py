@@ -3,8 +3,6 @@ from flask_app import app
 from flask_app.models.badge import Badge
 from flask_app.models.clause import Clause
 from flask_app.config import SECTION_COLOURS, SECTION_PATCHES
-from flask_app.utils.charts import sections_chart
-from flask_app.utils.filters import adjust_colour
 
 
 # Add sections to context for use in navbar
@@ -31,7 +29,7 @@ def get_image(filename):
 def home():
     badges = Badge.query.all()
     badges = [badge for badge in badges if badge.rating != "✖️"]
-    s_chart = sections_chart(badges)
+    json_badges = list(map(lambda x: x.to_json(), badges))
 
     patch_data = {
         section: [
@@ -44,11 +42,9 @@ def home():
 
     for section, count in SECTION_PATCHES.items():
         while len(patch_data[section]) < count:
-            patch_data[section].append(adjust_colour(SECTION_COLOURS[section], 0.4))
+            patch_data[section].append(f"dark_{SECTION_COLOURS[section]}")
 
-    return render_template(
-        "pages/home.html", badges=badges, section_chart=s_chart, patch_data=patch_data
-    )
+    return jsonify({"badges": json_badges, "patches": patch_data})
 
 
 @app.route("/badges")
@@ -56,6 +52,13 @@ def all_badges():
     badges = Badge.query.all()
     json_badges = list(map(lambda x: x.to_json(), badges))
     return jsonify(json_badges)
+
+
+@app.route("/sections")
+def all_sections():
+    badges = Badge.query.all()
+    sections = list(set([badge.section for badge in badges]))
+    return jsonify(sections)
 
 
 @app.route("/section/<choice>")
