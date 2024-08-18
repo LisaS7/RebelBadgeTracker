@@ -24,7 +24,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <Navbar v-if="loaded" :sections="sections" />
+  <Navbar v-if="loaded" />
   <RouterView />
 </template>
 

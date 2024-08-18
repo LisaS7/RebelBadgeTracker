@@ -1,8 +1,19 @@
 <script setup>
+import { ref } from "vue";
 import { RouterLink } from "vue-router";
-// import Logo from "../assets/images/RebelLogo.svg";
-const props = defineProps(["sections"]);
-console.log(props.sections);
+// const props = defineProps(["sections"]);
+
+const sections = ref([]);
+const loaded = ref(false);
+
+async function fetchSections() {
+  const response = await fetch("http://127.0.0.1:5000/sections");
+  const data = await response.json();
+  sections.value = data;
+  loaded.value = true;
+}
+
+fetchSections();
 </script>
 
 <template>
@@ -49,7 +60,7 @@ console.log(props.sections);
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a
-              v-for="section in props.sections"
+              v-for="section in sections"
               class="dropdown-item"
               :href="`section/${section}`"
               >{{ section }}</a
