@@ -1,3 +1,5 @@
+import { useDate } from "vuetify";
+
 export const colorShade = (col, amt) => {
   if (col === undefined) {
     return "grey";
@@ -23,3 +25,8 @@ export const colorShade = (col, amt) => {
 
   return `#${rr}${gg}${bb}`;
 };
+
+export function parseISODate(s) {
+  const adapter = useDate();
+  return adapter.parseISO(s.substring(0, 10));
+}

@@ -54,6 +54,11 @@ class Badge(db.Model):
         with open(SVG_PATH + self.image) as f:
             svg = f.read()
 
+        if self.date:
+            date = self.date.isoformat()
+        else:
+            date = self.date
+
         return {
             "id": self.id,
             "name": self.name,
@@ -64,7 +69,7 @@ class Badge(db.Model):
             "notes": self.notes,
             "progress": self.percentage,
             "complete": self.complete,
-            "date": self.date,
+            "date": date,
             "is_started": self.is_started,
             "is_next": self.is_next,
             "is_purchased": self.is_purchased,

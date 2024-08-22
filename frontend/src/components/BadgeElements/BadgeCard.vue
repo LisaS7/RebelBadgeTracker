@@ -1,6 +1,7 @@
 <script setup>
 import BaseCard from "../Base/BaseCard.vue";
 import BadgeRating from "./BadgeRating.vue";
+import Datepicker from "../UI/Datepicker.vue";
 
 const { badge } = defineProps(["badge"]);
 
@@ -47,11 +48,12 @@ function handleChange(ev, field, id) {
         <tr>
           <td><v-icon icon="mdi-check-outline" size="large"></v-icon></td>
           <td>Complete</td>
-          <td>
+          <td class="d-flex flex-row align-items-center justify-content-start">
             <v-checkbox
               @change="handleChange($event, 'complete', badge.id)"
               v-model="badge.complete"
             ></v-checkbox>
+            <Datepicker :id="badge.id" :current="badge.date" />
           </td>
         </tr>
         <tr>
@@ -72,5 +74,7 @@ function handleChange(ev, field, id) {
 <style scoped>
 .v-checkbox {
   height: 110%;
+  width: 3rem;
+  margin-left: -10px;
 }
 </style>
