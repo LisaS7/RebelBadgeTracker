@@ -15,7 +15,6 @@ async function fetchData() {
 function section_colours(data) {
   let patches = {};
   for (const patch in data) {
-    console.log(data[patch]);
     patches[patch] = data[patch].map((item) => {
       if (item.substring(0, 4) === "dark") {
         const section = item.substring(5);
