@@ -1,10 +1,13 @@
 <script setup>
-const props = defineProps(["colour", "image"]);
+import { SECTION_COLOURS } from "@/utils/constants";
+
+const props = defineProps(["section", "image"]);
+const colour = SECTION_COLOURS[props.section];
 </script>
 <template>
   <div
     class="badge-icon"
-    :style="`background:${props.colour}`"
+    :style="`background:${colour}`"
     v-html="`${props.image}`"
   ></div>
 </template>

@@ -5,7 +5,7 @@ import BadgeRating from "@/components/BadgeElements/BadgeRating.vue";
 
 const props = defineProps(["badges"]);
 const headers = [
-  { title: "icon", value: "image" },
+  { title: "", value: "image" },
   { title: "Name", value: "name", sortable: true },
   { title: "Progress", value: "progress", sortable: true },
   { title: "Rating", value: "rating", sortable: true },
@@ -17,7 +17,7 @@ const headers = [
 <template>
   <v-data-table :headers="headers" :items="props.badges">
     <template v-slot:item.image="{ item }">
-      <badge-icon :colour="item.colour" :image="item.image" />
+      <badge-icon :section="item.section" :image="item.image" />
     </template>
     <template v-slot:item.progress="{ item }">
       <badge-progress :progress="item.progress" />
