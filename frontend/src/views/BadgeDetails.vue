@@ -3,6 +3,9 @@ import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
 import BaseHeading from "@/components/Base/BaseHeading.vue";
 import BadgeIcon from "@/components/BadgeElements/BadgeIcon.vue";
+import BadgeProgress from "@/components/BadgeElements/BadgeProgress.vue";
+import BadgeCard from "@/components/BadgeElements/BadgeCard.vue";
+import ClauseCard from "@/components/BadgeElements/ClauseCard.vue";
 
 const route = useRoute();
 const id = parseInt(route.params.id);
@@ -32,4 +35,19 @@ onMounted(() => {
       size="lg"
     />
   </BaseHeading>
+  <div class="progress-container">
+    <BadgeProgress :progress="badge.progress" />
+  </div>
+  <div class="row">
+    <BadgeCard></BadgeCard>
+    <ClauseCard></ClauseCard>
+  </div>
 </template>
+
+<style scoped>
+.progress-container {
+  margin-top: 15rem;
+  margin-left: 3rem;
+  width: 25%;
+}
+</style>

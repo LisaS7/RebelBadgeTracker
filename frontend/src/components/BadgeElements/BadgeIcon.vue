@@ -1,15 +1,9 @@
 <script setup>
-import { SECTION_COLOURS } from "@/utils/constants";
+import { SECTION_COLOURS, ICON_SIZES } from "@/utils/constants";
 
 const { section, image, size } = defineProps(["section", "image", "size"]);
 const colour = SECTION_COLOURS[section];
-
-let iconSize = "70px";
-if (size === "lg") {
-  iconSize = "100px";
-} else if (size === "sm") {
-  iconSize = "40px";
-}
+let iconSize = ICON_SIZES[size] || "50px";
 </script>
 <template>
   <div
