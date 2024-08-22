@@ -1,5 +1,6 @@
 <script setup>
 import BadgeIcon from "@/components/BadgeElements/BadgeIcon.vue";
+import BadgeNameButton from "./BadgeElements/BadgeNameButton.vue";
 import BadgeProgress from "@/components/BadgeElements/BadgeProgress.vue";
 import BadgeRating from "@/components/BadgeElements/BadgeRating.vue";
 
@@ -15,9 +16,12 @@ const headers = [
 </script>
 
 <template>
-  <v-data-table :headers="headers" :items="props.badges">
+  <v-data-table :headers="headers" :items="props.badges" :items-per-page="25">
     <template v-slot:item.image="{ item }">
       <badge-icon :section="item.section" :image="item.image" />
+    </template>
+    <template v-slot:item.name="{ item }">
+      <BadgeNameButton :id="item.id" :name="item.name" />
     </template>
     <template v-slot:item.progress="{ item }">
       <badge-progress :progress="item.progress" />
