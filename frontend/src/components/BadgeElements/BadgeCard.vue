@@ -1,5 +1,7 @@
 <script setup>
 import BaseCard from "../Base/BaseCard.vue";
+import BadgeRating from "./BadgeRating.vue";
+
 const { badge } = defineProps(["badge"]);
 
 function handleChange(ev, field, id) {
@@ -40,7 +42,7 @@ function handleChange(ev, field, id) {
             <v-icon icon="mdi-thumbs-up-down-outline" size="large"></v-icon>
           </td>
           <td>Rating</td>
-          <td>{{ badge.rating }}</td>
+          <td><BadgeRating :id="badge.id" :current="badge.rating" /></td>
         </tr>
         <tr>
           <td><v-icon icon="mdi-check-outline" size="large"></v-icon></td>
