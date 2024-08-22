@@ -1,6 +1,7 @@
 <script setup>
-import BadgeRating from "@/components/BadgeElements/BadgeRating.vue";
+import BadgeIcon from "@/components/BadgeElements/BadgeIcon.vue";
 import BadgeProgress from "@/components/BadgeElements/BadgeProgress.vue";
+import BadgeRating from "@/components/BadgeElements/BadgeRating.vue";
 
 const props = defineProps(["badges"]);
 const headers = [
@@ -16,11 +17,7 @@ const headers = [
 <template>
   <v-data-table :headers="headers" :items="props.badges">
     <template v-slot:item.image="{ item }">
-      <div
-        class="badge-icon"
-        :style="`background:${item.colour}`"
-        v-html="`${item.image}`"
-      ></div>
+      <badge-icon :colour="item.colour" :image="item.image" />
     </template>
     <template v-slot:item.progress="{ item }">
       <badge-progress :progress="item.progress" />
@@ -42,12 +39,5 @@ const headers = [
 <style scoped>
 .table-container {
   margin: 5rem;
-}
-
-.badge-icon {
-  width: 40px;
-  height: 40px;
-  padding: 8px;
-  border-radius: 50%;
 }
 </style>
