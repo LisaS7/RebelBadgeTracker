@@ -1,7 +1,7 @@
 from datetime import datetime as dt
 from sqlalchemy.ext.hybrid import hybrid_property
 from flask_app import db
-from flask_app.config import SECTION_COLOURS, EDITABLE_FIELDS, SVG_PATH
+from flask_app.config import EDITABLE_FIELDS, SVG_PATH
 
 
 class Badge(db.Model):
@@ -45,10 +45,6 @@ class Badge(db.Model):
     @hybrid_property
     def percentage(self):
         return self.completed_clauses / self.clauses_required * 100
-
-    @hybrid_property
-    def colour(self):
-        return SECTION_COLOURS[self.section]
 
     def __repr__(self):
         return f"<Badge {self.id} - {self.name}>"

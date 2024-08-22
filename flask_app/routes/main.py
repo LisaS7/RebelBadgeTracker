@@ -1,8 +1,8 @@
-from flask import render_template, request, redirect, url_for, jsonify
+from flask import request, redirect, url_for, jsonify
 from flask_app import app
 from flask_app.models.badge import Badge
 from flask_app.models.clause import Clause
-from flask_app.config import SECTION_COLOURS, SECTION_PATCHES
+from flask_app.config import SECTION_PATCHES
 
 
 # Render images from SVGs
@@ -18,7 +18,7 @@ def home():
 
     patch_data = {
         section: [
-            badge.colour
+            badge.section
             for badge in badges
             if badge.complete and badge.section == section
         ]
@@ -27,7 +27,7 @@ def home():
 
     for section, count in SECTION_PATCHES.items():
         while len(patch_data[section]) < count:
-            patch_data[section].append(f"dark_{SECTION_COLOURS[section]}")
+            patch_data[section].append(f"dark_{section}")
 
     return jsonify({"patches": patch_data})
 
@@ -65,13 +65,8 @@ def section(choice):
     else:
         percentage = 0
 
-    context = {
-        "section": name,
-        "badges": badges,
-        "percentage": percentage,
-        "colour": SECTION_COLOURS[name],
-    }
-    return render_template("pages/section.html", context=context)
+    context = {"section": name, "badges": badges, "percentage": percentage}
+    return None
 
 
 @app.route("/badge/<id>", methods=["GET", "POST"])

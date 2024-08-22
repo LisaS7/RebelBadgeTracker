@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { colorShade } from "@/utils/functions";
+import { SECTION_COLOURS } from "@/utils/constants";
 
 const patches = ref({});
 let patchData = {};
@@ -14,13 +15,15 @@ async function fetchData() {
 function section_colours(data) {
   let patches = {};
   for (const patch in data) {
-    patches[patch] = data[patch].map((colour) => {
-      if (colour.substring(0, 4) === "dark") {
-        const colour_hex = colour.substring(5);
+    console.log(data[patch]);
+    patches[patch] = data[patch].map((item) => {
+      if (item.substring(0, 4) === "dark") {
+        const section = item.substring(5);
+        const colour_hex = SECTION_COLOURS[section];
         const darker = colorShade(colour_hex, -150);
         return darker;
       } else {
-        return colour;
+        return SECTION_COLOURS[item];
       }
     });
   }
