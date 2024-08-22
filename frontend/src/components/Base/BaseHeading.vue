@@ -1,16 +1,17 @@
 <script setup>
 import { SECTION_COLOURS } from "@/utils/constants";
 import { colorShade } from "@/utils/functions";
-const { text } = defineProps(["text"]);
-const colour = SECTION_COLOURS[text];
+const { text, section } = defineProps(["text", "section"]);
+const colour = SECTION_COLOURS[section];
 const adjusted_colour = colorShade(colour, 50);
 </script>
 <template>
   <h1
-    class="heading-tab"
+    class="heading-tab d-flex flex-row"
     :style="`background: ${colour}; box-shadow: ${adjusted_colour} 0px 0px 5px 10px;`"
   >
-    {{ text }}
+    <slot class="heading-icon"></slot>
+    <span class="heading-text">{{ text }}</span>
   </h1>
 </template>
 
@@ -24,5 +25,14 @@ const adjusted_colour = colorShade(colour, 50);
   left: 0;
   padding: 2rem 4rem 2rem 5rem;
   border-radius: 5px;
+  gap: 2rem;
+}
+
+.heading-icon {
+  margin-right: 3rem;
+}
+
+.heading-text {
+  margin: auto 0;
 }
 </style>
