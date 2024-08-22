@@ -18,7 +18,7 @@ const adjusted_colour = colorShade(colour, 50);
 <style scoped>
 .heading-tab {
   color: var(--blue-dark2);
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: 800;
   position: absolute;
   top: 10rem;

@@ -1,14 +1,12 @@
 <script setup>
-import { ref } from "vue";
 import { RouterLink } from "vue-router";
-
 const { sections } = defineProps(["sections"]);
 </script>
 
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <a class="navbar-brand" href="https://www.rebelbadgestore.com/"
-      ><img src="../assets/images/RebelLogo.svg"
+      ><img src="@/assets/images/RebelLogo.svg"
     /></a>
     <button
       class="navbar-toggler"
@@ -26,12 +24,12 @@ const { sections } = defineProps(["sections"]);
       <ul class="navbar-nav mr-auto">
         <li id="nav-home" class="nav-item">
           <RouterLink to="/">
-            <img src="../assets/icons/home.svg" title="Home" />
+            <img src="@/assets/icons/home.svg" title="Home" />
           </RouterLink>
         </li>
         <li id="nav-all" class="nav-item">
           <RouterLink to="/badges/all">
-            <img src="../assets/icons/all_badges.svg" title="View All Badges" />
+            <img src="@/assets/icons/all_badges.svg" title="View All Badges" />
           </RouterLink>
         </li>
 
@@ -45,7 +43,7 @@ const { sections } = defineProps(["sections"]);
             aria-haspopup="true"
             aria-expanded="false"
           >
-            <img src="../assets/icons/section.svg" title="Sections" />
+            <img src="@/assets/icons/section.svg" title="Sections" />
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a

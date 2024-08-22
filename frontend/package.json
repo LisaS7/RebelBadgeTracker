@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mdi/font": "^7.4.47",
     "chart.js": "^4.4.3",
     "vue": "^3.4.29",
     "vue-chartjs": "^5.3.1",
