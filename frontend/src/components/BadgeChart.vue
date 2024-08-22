@@ -6,6 +6,7 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "vue-chartjs";
 import { colorShade } from "@/utils/functions";
+import { SECTION_COLOURS } from "@/utils/constants";
 
 const props = defineProps(["badges"]);
 
@@ -14,10 +15,11 @@ const values = props.badges.map((badge) => 1);
 
 const colours = [];
 props.badges.forEach((badge) => {
+  const colour = SECTION_COLOURS[badge.section];
   if (badge.complete === true) {
-    colours.push(badge.colour);
+    colours.push(colour);
   } else {
-    const darker = colorShade(badge.colour, -150);
+    const darker = colorShade(colour, -150);
     colours.push(darker);
   }
 });
