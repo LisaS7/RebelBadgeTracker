@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { RouterView } from "vue-router";
-import Navbar from "./components/Navbar.vue";
+import Navbar from "./components/TheNavbar.vue";
 
 const badges = ref([]);
 const sections = ref([]);

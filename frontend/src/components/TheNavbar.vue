@@ -62,7 +62,7 @@ fetchSections();
             <a
               v-for="section in sections"
               class="dropdown-item"
-              :href="`section/${section}`"
+              :href="`/section/${section}`"
               >{{ section }}</a
             >
           </div>
