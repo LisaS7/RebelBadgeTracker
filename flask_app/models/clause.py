@@ -23,3 +23,12 @@ class Clause(db.Model):
             if field in data:
                 setattr(self, field, data[field])
         db.session.commit()
+
+    def to_json(self):
+        return {
+            "id": self.id,
+            "description": self.description,
+            "complete": self.complete,
+            "date": self.date,
+            "factor": self.factor,
+        }

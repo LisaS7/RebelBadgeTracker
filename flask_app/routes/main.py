@@ -82,8 +82,9 @@ def badge(id):
 
     badge = Badge.query.get(id)
     clauses = Clause.query.filter(Clause.badge_id == id).all()
+    clauses_json = [clause.to_json() for clause in clauses]
 
-    return "Success", 200
+    return jsonify({"badge": badge.to_json(), "clauses": clauses_json})
 
 
 @app.route("/clause/<id>", methods=["POST"])
