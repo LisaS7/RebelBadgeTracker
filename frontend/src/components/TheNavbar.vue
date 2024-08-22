@@ -1,19 +1,8 @@
 <script setup>
 import { ref } from "vue";
 import { RouterLink } from "vue-router";
-// const props = defineProps(["sections"]);
 
-const sections = ref([]);
-const loaded = ref(false);
-
-async function fetchSections() {
-  const response = await fetch("http://127.0.0.1:5000/sections");
-  const data = await response.json();
-  sections.value = data;
-  loaded.value = true;
-}
-
-fetchSections();
+const { sections } = defineProps(["sections"]);
 </script>
 
 <template>
