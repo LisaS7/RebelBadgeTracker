@@ -18,7 +18,7 @@ const headers = [
 <template>
   <v-data-table :headers="headers" :items="props.badges" :items-per-page="25">
     <template v-slot:item.image="{ item }">
-      <badge-icon :section="item.section" :image="item.image" />
+      <badge-icon :section="item.section" :image="item.image" size="sm" />
     </template>
     <template v-slot:item.name="{ item }">
       <BadgeNameButton :id="item.id" :name="item.name" />

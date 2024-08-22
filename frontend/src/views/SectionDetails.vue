@@ -10,7 +10,7 @@ const props = defineProps(["badges"]);
 const sectionBadges = props.badges.filter((badge) => badge.section === section);
 </script>
 <template>
-  <BaseHeading :text="section" />
+  <BaseHeading :text="section" :section="section" />
   <BadgeTable :badges="sectionBadges" />
 </template>
 

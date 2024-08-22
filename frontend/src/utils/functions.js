@@ -1,4 +1,7 @@
 export const colorShade = (col, amt) => {
+  if (col === undefined) {
+    return "grey";
+  }
   col = col.replace(/^#/, "");
   if (col.length === 3)
     col = col[0] + col[0] + col[1] + col[1] + col[2] + col[2];
