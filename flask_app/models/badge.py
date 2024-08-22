@@ -59,7 +59,6 @@ class Badge(db.Model):
             "name": self.name,
             "image": svg,
             "section": self.section,
-            "colour": self.colour,
             "book": self.book,
             "rating": self.rating,
             "notes": self.notes,
