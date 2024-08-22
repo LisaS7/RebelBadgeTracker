@@ -1,4 +1,5 @@
 <script setup>
+import BadgeRating from "@/components/BadgeElements/BadgeRating.vue";
 const props = defineProps(["badges"]);
 const headers = [
   { title: "icon", value: "image" },
@@ -25,6 +26,9 @@ const headers = [
           <strong style="color: black">{{ Math.ceil(value) }}%</strong>
         </template>
       </v-progress-linear>
+    </template>
+    <template v-slot:item.rating="{ item }">
+      <badge-rating :current="item.rating" :id="item.id" />
     </template>
     <template v-slot:item.tags="{ item }">
       <span v-if="item.is_next" class="badge rounded-pill bg-light text-dark"

@@ -88,7 +88,7 @@ def badge(id):
     badge = Badge.query.get(id)
     clauses = Clause.query.filter(Clause.badge_id == id).all()
 
-    return render_template("pages/badge.html", badge=badge, clauses=clauses)
+    return "Success", 200
 
 
 @app.route("/clause/<id>", methods=["POST"])
