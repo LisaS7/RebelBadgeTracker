@@ -6,8 +6,6 @@ const { current, id } = defineProps(["current", "id"]);
 const date = ref(parseISODate(current));
 const showPicker = ref(false);
 
-console.log(date);
-
 function changeDate(id, date) {
   console.log(date);
 }
@@ -20,7 +18,7 @@ function togglePicker() {
 <template>
   <span @click="togglePicker">
     <v-icon icon="mdi-calendar-range" size="large"></v-icon>
-    {{ date ? date : "Choose date" }}
+    {{ date ? date.toDateString() : "Choose date" }}
   </span>
   <v-overlay v-model="showPicker" class="align-center justify-center">
     <v-date-picker
@@ -32,11 +30,4 @@ function togglePicker() {
   </v-overlay>
 </template>
 
-<style scoped>
-.container {
-  /* position: absolute;
-  overflow: visible;
-  top: 1vw;
-  right: 1vw; */
-}
-</style>
+<style scoped></style>
