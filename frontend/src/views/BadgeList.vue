@@ -1,5 +1,7 @@
 <script setup>
 import BadgeRating from "@/components/BadgeElements/BadgeRating.vue";
+import BadgeProgress from "@/components/BadgeElements/BadgeProgress.vue";
+
 const props = defineProps(["badges"]);
 const headers = [
   { title: "icon", value: "image" },
@@ -21,11 +23,7 @@ const headers = [
       ></div>
     </template>
     <template v-slot:item.progress="{ item }">
-      <v-progress-linear :model-value="`${item.progress}`" :height="20" rounded
-        ><template v-slot:default="{ value }">
-          <strong style="color: black">{{ Math.ceil(value) }}%</strong>
-        </template>
-      </v-progress-linear>
+      <badge-progress :progress="item.progress" />
     </template>
     <template v-slot:item.rating="{ item }">
       <badge-rating :current="item.rating" :id="item.id" />
