@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "@/views/HomeView.vue";
 import BadgeList from "@/views/BadgeListAll.vue";
 import SectionDetails from "@/views/SectionDetails.vue";
+import BadgeDetails from "@/views/BadgeDetails.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,6 +21,11 @@ const router = createRouter({
       path: "/section/:name",
       name: "section",
       component: SectionDetails,
+    },
+    {
+      path: "/badge/:id",
+      name: "badge_detail",
+      component: BadgeDetails,
     },
   ],
 });
