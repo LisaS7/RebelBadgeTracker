@@ -39,7 +39,7 @@ onMounted(() => {
     <BadgeProgress :progress="badge.progress" />
   </div>
   <div class="row">
-    <BadgeCard :badge="badge"></BadgeCard>
+    <BadgeCard v-if="loaded" :badge="badge"></BadgeCard>
     <ClauseCard></ClauseCard>
   </div>
 </template>

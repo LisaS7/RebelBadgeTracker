@@ -46,9 +46,9 @@ function handleChange(ev, field, id) {
           <td><v-icon icon="mdi-check-outline" size="large"></v-icon></td>
           <td>Complete</td>
           <td>
-            {{ badge.complete
-            }}<v-checkbox
+            <v-checkbox
               @change="handleChange($event, 'complete', badge.id)"
+              v-model="badge.complete"
             ></v-checkbox>
           </td>
         </tr>
