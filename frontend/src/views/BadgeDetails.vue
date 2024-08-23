@@ -61,12 +61,12 @@ function updateProgress(value) {
     <BadgeProgress :progress="progress" />
   </div>
   <div class="row">
-    <BadgeCard v-if="loaded" :badge="badge"></BadgeCard>
+    <BadgeCard v-if="loaded" :badge="badge" />
     <ClauseCard
       v-if="loaded"
       :clauses="clauses"
       @clauseComplete="updateProgress"
-    ></ClauseCard>
+    />
   </div>
 </template>
 

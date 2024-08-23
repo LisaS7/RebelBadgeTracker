@@ -9,6 +9,6 @@
 <style scoped>
 .v-card {
   margin: 3rem;
-  width: 30%;
+  width: 40%;
 }
 </style>

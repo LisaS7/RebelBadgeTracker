@@ -10,7 +10,9 @@ const up_next = ref([]);
 const shopping_list = ref([]);
 
 onMounted(async () => {
-  in_progress.value = props.badges.filter((badge) => badge.complete === false);
+  in_progress.value = props.badges.filter(
+    (badge) => badge.complete === false && badge.is_started === true
+  );
   up_next.value = props.badges.filter((badge) => badge.is_next === true);
   shopping_list.value = props.badges.filter(
     (badge) => badge.complete === true && badge.is_purchased !== true

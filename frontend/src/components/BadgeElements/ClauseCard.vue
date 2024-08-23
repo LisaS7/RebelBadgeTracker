@@ -29,7 +29,6 @@ function clauseComplete(clause) {
           </td>
           <td>{{ clause.description }}</td>
           <td>
-            {{ clause.date }}
             <Datepicker :id="clause.id" :current="clause.date" type="clause" />
           </td>
         </tr>
