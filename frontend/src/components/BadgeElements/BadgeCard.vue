@@ -2,6 +2,7 @@
 import BaseCard from "../Base/BaseCard.vue";
 import BadgeRating from "./BadgeRating.vue";
 import Datepicker from "../UI/Datepicker.vue";
+import BadgeTags from "./BadgeTags.vue";
 import BadgeNotes from "./BadgeNotes.vue";
 import { handleChange } from "@/utils/functions";
 
@@ -44,7 +45,7 @@ const { badge } = defineProps(["badge"]);
         <tr>
           <td><v-icon icon="mdi-tag-outline" size="large"></v-icon></td>
           <td>Tags</td>
-          <td></td>
+          <td><BadgeTags :badge="badge" /></td>
         </tr>
         <tr>
           <td><v-icon icon="mdi-link-variant" size="large"></v-icon></td>
