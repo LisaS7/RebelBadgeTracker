@@ -1,14 +1,14 @@
 <script setup>
 import { ref } from "vue";
 import { parseISODate, dateToString } from "@/utils/functions";
-const { current, id } = defineProps(["current", "id"]);
+const { current, id, type } = defineProps(["current", "id", "type"]);
 
 const date = ref(parseISODate(current));
 const showPicker = ref(false);
 
 function changeDate(id, date) {
   const dateStr = date ? dateToString(date) : null;
-  fetch(`http://127.0.0.1:5000/badge/${id}`, {
+  fetch(`http://127.0.0.1:5000/${type}/${id}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

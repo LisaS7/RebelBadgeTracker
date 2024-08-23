@@ -40,7 +40,7 @@ onMounted(() => {
   </div>
   <div class="row">
     <BadgeCard v-if="loaded" :badge="badge"></BadgeCard>
-    <ClauseCard></ClauseCard>
+    <ClauseCard :clauses="clauses"></ClauseCard>
   </div>
 </template>
 

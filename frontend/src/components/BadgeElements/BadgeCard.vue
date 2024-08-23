@@ -38,7 +38,7 @@ const { badge } = defineProps(["badge"]);
               @change="handleChange($event, 'complete', badge.id)"
               v-model="badge.complete"
             ></v-checkbox>
-            <Datepicker :id="badge.id" :current="badge.date" />
+            <Datepicker :id="badge.id" :current="badge.date" type="badge" />
           </td>
         </tr>
         <tr>

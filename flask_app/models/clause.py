@@ -25,10 +25,16 @@ class Clause(db.Model):
         db.session.commit()
 
     def to_json(self):
+
+        if self.date:
+            date = self.date.isoformat()
+        else:
+            date = self.date
+
         return {
             "id": self.id,
             "description": self.description,
             "complete": self.complete,
-            "date": self.date,
+            "date": date,
             "factor": self.factor,
         }
