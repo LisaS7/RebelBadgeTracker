@@ -60,9 +60,21 @@ const { sections } = defineProps(["sections"]);
 </template>
 
 <style scoped>
-nav {
+nav,
+.dropdown-menu {
   background: var(--rebel-dark-teal);
+}
+
+.dropdown-menu > a:hover {
+  background: var(--blue-dark1);
+}
+
+nav {
   gap: 4rem;
+}
+
+.nav-link {
+  padding: 0;
 }
 
 nav ul {
