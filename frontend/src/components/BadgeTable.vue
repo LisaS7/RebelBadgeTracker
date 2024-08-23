@@ -11,7 +11,7 @@ const headers = [
   { title: "Progress", value: "progress", sortable: true },
   { title: "Rating", value: "rating", sortable: true },
   { title: "Notes", value: "notes" },
-  { title: "Tags" },
+  { title: "Tags", value: "tags" },
 ];
 </script>
 
@@ -30,12 +30,9 @@ const headers = [
       <badge-rating :current="item.rating" :id="item.id" />
     </template>
     <template v-slot:item.tags="{ item }">
-      <span v-if="item.is_next" class="badge rounded-pill bg-light text-dark"
-        >Next</span
-      >
-      <span v-if="item.complete" class="badge rounded-pill bg-light text-dark"
-        >Complete</span
-      >
+      <v-chip v-if="item.is_started">Started</v-chip>
+      <v-chip v-if="item.is_next">Next</v-chip>
+      <v-chip v-if="item.is_purchased">Purchased</v-chip>
     </template>
   </v-data-table>
 </template>
