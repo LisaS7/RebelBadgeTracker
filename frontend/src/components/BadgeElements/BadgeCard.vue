@@ -7,6 +7,10 @@ import BadgeNotes from "./BadgeNotes.vue";
 import { handleChange } from "@/utils/functions";
 
 const { badge } = defineProps(["badge"]);
+
+function openLink(ev) {
+  window.open(badge.link, "_blank").focus();
+}
 </script>
 <template>
   <BaseCard title="Details">
@@ -50,7 +54,16 @@ const { badge } = defineProps(["badge"]);
         <tr>
           <td><v-icon icon="mdi-link-variant" size="large"></v-icon></td>
           <td>Link</td>
-          <td>{{ badge.link }}</td>
+          <td>
+            <v-text-field
+              @blur="handleChange($event, 'link', badge.id)"
+              label="Paste link"
+              v-model="badge.link"
+              density="compact"
+              append-icon="mdi-open-in-new"
+              @click:append="openLink"
+            />
+          </td>
         </tr>
         <tr>
           <td></td>
@@ -67,5 +80,9 @@ const { badge } = defineProps(["badge"]);
   height: 110%;
   width: 3rem;
   margin-left: -10px;
+}
+
+.v-text-field {
+  margin-top: 1rem;
 }
 </style>

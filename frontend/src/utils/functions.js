@@ -6,8 +6,10 @@ export function handleChange(ev, field, id) {
     case "complete":
       value = ev.target.checked;
       break;
+    case "link":
     case "notes":
       value = ev.target.value;
+      break;
   }
 
   const body = {

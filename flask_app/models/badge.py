@@ -67,6 +67,7 @@ class Badge(db.Model):
             "book": self.book,
             "rating": self.rating,
             "notes": self.notes,
+            "link": self.link,
             "progress": self.percentage,
             "clauses_required": self.clauses_required,
             "complete": self.complete,
