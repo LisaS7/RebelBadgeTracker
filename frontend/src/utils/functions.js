@@ -6,14 +6,19 @@ export function handleChange(ev, field, id) {
     case "complete":
       value = ev.target.checked;
       break;
+    case "notes":
+      value = ev.target.value;
   }
+
+  const body = {
+    id,
+  };
+  body[field] = value;
+
   fetch(`http://127.0.0.1:5000/badge/${id}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      id: id,
-      field: value,
-    }),
+    body: JSON.stringify(body),
   });
 }
 

@@ -78,6 +78,11 @@ def badge(id):
             return "No id provided", 400
 
         badge = Badge.query.get(data["id"])
+
+        field = [key for key in data if key != "id"]
+        if not hasattr(badge, field[0]):
+            return "Field is invalid", 400
+
         badge.save_changes(data)
 
     badge = Badge.query.get(id)
