@@ -13,13 +13,13 @@ onMounted(async () => {
   in_progress.value = props.badges.filter((badge) => badge.complete === false);
   up_next.value = props.badges.filter((badge) => badge.is_next === true);
   shopping_list.value = props.badges.filter(
-    (badge) => badge.complete === true && badge.is_purchased === false
+    (badge) => badge.complete === true && badge.is_purchased !== true
   );
 });
 </script>
 
 <template>
-  <div class="row my-5">
+  <div class="row chart-container">
     <div class="col-5">
       <BadgeChart :badges="badges" />
     </div>
@@ -53,6 +53,10 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+.chart-container {
+  margin: 5rem 0;
+}
+
 .list-group {
   padding: 2rem;
 }
