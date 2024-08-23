@@ -12,6 +12,8 @@ const id = parseInt(route.params.id);
 const badge = ref({});
 const clauses = ref([]);
 const loaded = ref(false);
+const progress = ref(0);
+const clauses_complete = ref(0);
 
 async function fetchBadge() {
   const response = await fetch("http://127.0.0.1:5000/badge/" + id);
@@ -21,9 +23,29 @@ async function fetchBadge() {
   loaded.value = true;
 }
 
+function calcProgress() {
+  progress.value =
+    (clauses_complete.value / badge.value.clauses_required) * 100;
+}
+
 onMounted(() => {
-  fetchBadge();
+  fetchBadge().then(() => {
+    clauses_complete.value = clauses.value.filter(
+      (clause) => clause.complete
+    ).length;
+    calcProgress();
+  });
 });
+
+function updateProgress(value) {
+  if (value === true) {
+    clauses_complete.value++;
+  } else {
+    clauses_complete.value--;
+  }
+
+  calcProgress();
+}
 </script>
 
 <template>
@@ -36,11 +58,15 @@ onMounted(() => {
     />
   </BaseHeading>
   <div class="progress-container">
-    <BadgeProgress :progress="badge.progress" />
+    <BadgeProgress :progress="progress" />
   </div>
   <div class="row">
     <BadgeCard v-if="loaded" :badge="badge"></BadgeCard>
-    <ClauseCard :clauses="clauses"></ClauseCard>
+    <ClauseCard
+      v-if="loaded"
+      :clauses="clauses"
+      @clauseComplete="updateProgress"
+    ></ClauseCard>
   </div>
 </template>
 

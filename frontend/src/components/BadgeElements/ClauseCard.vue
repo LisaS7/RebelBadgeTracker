@@ -4,20 +4,14 @@ import Datepicker from "../UI/Datepicker.vue";
 
 const { clauses } = defineProps(["clauses"]);
 
-function handleChange(id, type, newValue) {
-  console.log(id);
-  console.log(type);
-  console.log(newValue);
-
-  const body = {
-    id,
-  };
-  body[type] = newValue;
-
-  fetch(`http://127.0.0.1:5000/clause/${id}`, {
+function clauseComplete(clause) {
+  fetch(`http://127.0.0.1:5000/clause/${clause.id}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
+    body: JSON.stringify({
+      id: clause.id,
+      complete: clause.complete,
+    }),
   });
 }
 </script>
@@ -28,7 +22,8 @@ function handleChange(id, type, newValue) {
         <tr v-for="clause in clauses" :key="clause.id">
           <td>
             <v-checkbox
-              @change="handleChange(clause.id, 'complete', clause.complete)"
+              @change="clauseComplete(clause)"
+              @click="$emit('clauseComplete', !clause.complete, clause.factor)"
               v-model="clause.complete"
             ></v-checkbox>
           </td>
