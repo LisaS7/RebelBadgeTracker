@@ -1,5 +1,22 @@
 import { useDate } from "vuetify";
 
+export function handleChange(ev, field, id) {
+  let value = null;
+  switch (field) {
+    case "complete":
+      value = ev.target.checked;
+      break;
+  }
+  fetch(`http://127.0.0.1:5000/badge/${id}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      id: id,
+      field: value,
+    }),
+  });
+}
+
 export const colorShade = (col, amt) => {
   if (col === undefined) {
     return "grey";
@@ -28,5 +45,14 @@ export const colorShade = (col, amt) => {
 
 export function parseISODate(s) {
   const adapter = useDate();
+  if (s === null) {
+    return null;
+  }
   return adapter.parseISO(s.substring(0, 10));
+}
+
+export function dateToString(date) {
+  const offset = date.getTimezoneOffset();
+  date = new Date(date.getTime() - offset * 60 * 1000);
+  return date.toISOString().split("T")[0];
 }

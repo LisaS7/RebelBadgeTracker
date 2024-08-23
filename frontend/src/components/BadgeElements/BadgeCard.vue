@@ -2,25 +2,9 @@
 import BaseCard from "../Base/BaseCard.vue";
 import BadgeRating from "./BadgeRating.vue";
 import Datepicker from "../UI/Datepicker.vue";
+import { handleChange } from "@/utils/functions";
 
 const { badge } = defineProps(["badge"]);
-
-function handleChange(ev, field, id) {
-  let value = null;
-  switch (field) {
-    case "complete":
-      value = ev.target.checked;
-      break;
-  }
-  fetch(`http://127.0.0.1:5000/badge/${id}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      id: id,
-      field: value,
-    }),
-  });
-}
 </script>
 <template>
   <BaseCard title="Details">
