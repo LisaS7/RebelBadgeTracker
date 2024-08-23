@@ -6,7 +6,7 @@ import BadgeProgress from "@/components/BadgeElements/BadgeProgress.vue";
 import BadgeRating from "@/components/BadgeElements/BadgeRating.vue";
 
 const search = ref("");
-const ratingFilter = ref([]);
+const toggle_multiple = ref([]);
 const props = defineProps(["badges"]);
 const badges = ref(props.badges);
 const headers = [
@@ -18,17 +18,11 @@ const headers = [
   { title: "Tags", value: "tags" },
 ];
 
-function filterRating(ev) {
-  const value = ev.target.value;
-  if (ev.target.checked) {
-    ratingFilter.value.push(value);
-  } else {
-    ratingFilter.value = ratingFilter.value.filter((item) => item !== value);
-  }
-
-  if (ratingFilter.value.length > 0) {
+function toggleGroup(ev) {
+  console.log(ev);
+  if (toggle_multiple.value.length > 0) {
     badges.value = props.badges.filter((item) =>
-      ratingFilter.value.includes(item.rating)
+      toggle_multiple.value.includes(item.rating)
     );
   } else {
     badges.value = props.badges;
@@ -50,16 +44,23 @@ function filterRating(ev) {
     </template>
   </v-card>
   <v-row class="justify-end">
-    <v-col class="v-col-3">
-      <v-row>
-        <v-checkbox label="✖️" value="✖️" @click="filterRating"></v-checkbox>
-        <v-checkbox label="🟢" value="🟢" @click="filterRating"></v-checkbox>
-        <v-checkbox label="🟡" value="🟡" @click="filterRating"></v-checkbox>
-        <v-checkbox label="🟠" value="🟠" @click="filterRating"></v-checkbox>
-        <v-checkbox label="🔴" value="🔴" @click="filterRating"></v-checkbox>
-      </v-row>
-    </v-col>
-    <v-col class="v-col-3">text2</v-col>
+    <v-col class="v-col-3"
+      ><p>Filter rating</p>
+      <v-btn-toggle
+        v-model="toggle_multiple"
+        background-color="primary"
+        dark
+        multiple
+        @update:modelValue="toggleGroup"
+      >
+        <v-btn value="✖️"> ✖️ </v-btn>
+        <v-btn value="🟢"> 🟢 </v-btn>
+        <v-btn value="🟡"> 🟡 </v-btn>
+        <v-btn value="🟠"> 🟠 </v-btn>
+        <v-btn value="🔴"> 🔴 </v-btn>
+      </v-btn-toggle></v-col
+    >
+    <v-col class="v-col-3"> </v-col>
   </v-row>
   <v-data-table
     :headers="headers"
