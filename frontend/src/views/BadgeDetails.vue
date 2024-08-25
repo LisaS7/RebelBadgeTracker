@@ -17,11 +17,11 @@ let clauses_complete = ref(
   badge.clauses.filter((clause) => clause.complete).length
 );
 
-function updateProgress(value) {
+function updateProgress(value, factor) {
   if (value === true) {
-    clauses_complete.value++;
+    clauses_complete.value + factor;
   } else {
-    clauses_complete.value--;
+    clauses_complete.value - factor;
   }
 
   badge.progress = (clauses_complete.value / badge.clauses_required) * 100;

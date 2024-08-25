@@ -4,7 +4,6 @@ import BadgeRating from "./BadgeRating.vue";
 import Datepicker from "../UI/Datepicker.vue";
 import BadgeTags from "./BadgeTags.vue";
 import BadgeNotes from "./BadgeNotes.vue";
-import { handleChange } from "@/utils/functions";
 import { useBadgeStore } from "@/stores/BadgeStore";
 
 const { badge } = defineProps(["badge"]);

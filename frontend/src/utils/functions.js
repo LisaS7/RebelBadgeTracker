@@ -1,29 +1,5 @@
 import { useDate } from "vuetify";
 
-export function handleChange(ev, field, id) {
-  let value = null;
-  switch (field) {
-    case "complete":
-      value = ev.target.checked;
-      break;
-    case "link":
-    case "notes":
-      value = ev.target.value;
-      break;
-  }
-
-  const body = {
-    id,
-  };
-  body[field] = value;
-
-  fetch(`http://127.0.0.1:5000/badge/${id}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-  });
-}
-
 export const colorShade = (col, amt) => {
   if (col === undefined) {
     return "grey";
