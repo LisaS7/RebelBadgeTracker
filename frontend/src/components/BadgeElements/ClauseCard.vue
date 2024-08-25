@@ -1,8 +1,10 @@
 <script setup>
+import { ref, onMounted } from "vue";
 import BaseCard from "../Base/BaseCard.vue";
 import Datepicker from "../UI/Datepicker.vue";
 
-const { clauses } = defineProps(["clauses"]);
+const props = defineProps(["clauses"]);
+const clauses = ref(props.clauses);
 
 function clauseComplete(clause) {
   fetch(`http://127.0.0.1:5000/clause/${clause.id}`, {
