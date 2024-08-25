@@ -19,7 +19,6 @@ const headers = [
 ];
 
 function toggleGroup(ev) {
-  console.log(ev);
   if (toggle_multiple.value.length > 0) {
     badges.value = props.badges.filter((item) =>
       toggle_multiple.value.includes(item.rating)

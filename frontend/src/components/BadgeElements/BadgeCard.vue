@@ -5,8 +5,10 @@ import Datepicker from "../UI/Datepicker.vue";
 import BadgeTags from "./BadgeTags.vue";
 import BadgeNotes from "./BadgeNotes.vue";
 import { handleChange } from "@/utils/functions";
+import { useBadgeStore } from "@/stores/BadgeStore";
 
 const { badge } = defineProps(["badge"]);
+const badgeStore = useBadgeStore();
 
 function openLink(ev) {
   window.open(badge.link, "_blank").focus();
@@ -40,7 +42,9 @@ function openLink(ev) {
           <td>Complete</td>
           <td class="d-flex flex-row align-items-center justify-content-start">
             <v-checkbox
-              @change="handleChange($event, 'complete', badge.id)"
+              @change="
+                (event) => badgeStore.updateBadge(event, 'complete', badge.id)
+              "
               v-model="badge.complete"
             ></v-checkbox>
             <Datepicker :id="badge.id" :current="badge.date" type="badge" />
@@ -56,7 +60,7 @@ function openLink(ev) {
           <td>Link</td>
           <td>
             <v-text-field
-              @blur="handleChange($event, 'link', badge.id)"
+              @blur="(event) => badgeStore.updateBadge(event, 'link', badge.id)"
               label="Paste link"
               v-model="badge.link"
               density="compact"

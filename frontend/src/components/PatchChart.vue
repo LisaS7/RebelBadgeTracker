@@ -1,16 +1,14 @@
 <script setup>
 import { ref, onMounted } from "vue";
+import { useBadgeStore } from "@/stores/BadgeStore";
 import { colorShade } from "@/utils/functions";
 import { SECTION_COLOURS } from "@/utils/constants";
 
-const patches = ref({});
-let patchData = {};
+const badgeStore = useBadgeStore();
 
-async function fetchData() {
-  const response = await fetch("http://127.0.0.1:5000/patches");
-  const data_json = await response.json();
-  patchData = data_json["patches"];
-}
+let patches = ref({});
+let patchData = ref([]);
+let loaded = ref(false);
 
 function section_colours(data) {
   let patches = {};
@@ -29,13 +27,14 @@ function section_colours(data) {
   return patches;
 }
 
-onMounted(async () => {
-  await fetchData();
-  patches.value = section_colours(patchData);
-});
+badgeStore.getPatchData();
+patchData.value = badgeStore.patchData;
+patches.value = section_colours(patchData.value);
+loaded.value = true;
+onMounted(async () => {});
 </script>
 
-<template>
+<template v-if="loaded">
   <h3 class="home-header">Section Patch Progress</h3>
   <div v-for="(colours, section) in patches" class="row d-flex flex-row">
     <p class="w-25">{{ section }}</p>

@@ -1,26 +1,18 @@
 <script setup>
+import { useBadgeStore } from "@/stores/BadgeStore";
 import { ref } from "vue";
 const ratings = ref(["None", "✖️", "🟢", "🟡", "🟠", "🔴"]);
 const props = defineProps(["current", "id"]);
 const current = ref(props.current);
 const selected = ref(current);
 
-function changeRating(id, selected) {
-  fetch(`http://127.0.0.1:5000/badge/${id}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      id: id,
-      rating: selected,
-    }),
-  });
-}
+const badgeStore = useBadgeStore();
 </script>
 
 <template>
   <select
     label="Select"
-    @change="changeRating(props.id, selected)"
+    @change="(event) => badgeStore.updateBadge(event, 'rating', props.id)"
     v-model="selected"
   >
     <option v-for="rating in ratings" :value="rating">{{ rating }}</option>

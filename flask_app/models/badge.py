@@ -46,6 +46,10 @@ class Badge(db.Model):
     def percentage(self):
         return self.completed_clauses / self.clauses_required * 100
 
+    @hybrid_property
+    def clauses_json(self):
+        return [clause.to_json() for clause in self.clauses]
+
     def __repr__(self):
         return f"<Badge {self.id} - {self.name}>"
 
@@ -69,6 +73,7 @@ class Badge(db.Model):
             "notes": self.notes,
             "link": self.link,
             "progress": self.percentage,
+            "clauses": self.clauses_json,
             "clauses_required": self.clauses_required,
             "complete": self.complete,
             "date": date,

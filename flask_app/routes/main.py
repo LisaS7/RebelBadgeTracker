@@ -39,34 +39,34 @@ def all_badges():
     return jsonify(json_badges)
 
 
-@app.route("/sections")
-def all_sections():
-    badges = Badge.query.all()
-    sections = list(set([badge.section for badge in badges]))
-    return jsonify(sections)
+# @app.route("/sections")
+# def all_sections():
+#     badges = Badge.query.all()
+#     sections = list(set([badge.section for badge in badges]))
+#     return jsonify(sections)
 
 
-@app.route("/section/<choice>")
-def section(choice):
-    name = choice.title()
-    search = request.args.get("search")
+# @app.route("/section/<choice>")
+# def section(choice):
+#     name = choice.title()
+#     search = request.args.get("search")
 
-    if search:
-        badges = Badge.query.filter(
-            Badge.section == name, Badge.name.contains(search)
-        ).all()
-    else:
-        badges = Badge.query.filter(Badge.section == name).all()
+#     if search:
+#         badges = Badge.query.filter(
+#             Badge.section == name, Badge.name.contains(search)
+#         ).all()
+#     else:
+#         badges = Badge.query.filter(Badge.section == name).all()
 
-    if badges:
-        percentage = (
-            [badge.complete for badge in badges].count(True) / len(badges) * 100
-        )
-    else:
-        percentage = 0
+#     if badges:
+#         percentage = (
+#             [badge.complete for badge in badges].count(True) / len(badges) * 100
+#         )
+#     else:
+#         percentage = 0
 
-    context = {"section": name, "badges": badges, "percentage": percentage}
-    return None
+#     context = {"section": name, "badges": badges, "percentage": percentage}
+#     return None
 
 
 @app.route("/badge/<id>", methods=["GET", "POST"])
@@ -86,10 +86,8 @@ def badge(id):
         badge.save_changes(data)
 
     badge = Badge.query.get(id)
-    clauses = Clause.query.filter(Clause.badge_id == id).all()
-    clauses_json = [clause.to_json() for clause in clauses]
 
-    return jsonify({"badge": badge.to_json(), "clauses": clauses_json})
+    return jsonify({"badge": badge.to_json()})
 
 
 @app.route("/clause/<id>", methods=["POST"])

@@ -2,9 +2,9 @@
 import { ref } from "vue";
 const { value, id } = defineProps(["value", "id"]);
 const textContent = ref(value);
-import { handleChange } from "@/utils/functions";
+import { useBadgeStore } from "@/stores/BadgeStore";
 
-function changeText() {}
+const badgeStore = useBadgeStore();
 </script>
 <template>
   <div class="notes-container">
@@ -12,7 +12,7 @@ function changeText() {}
       label="Notes"
       variant="outlined"
       v-model="textContent"
-      @blur="handleChange($event, 'notes', id)"
+      @blur="(event) => badgeStore.updateBadge(event, 'notes', id)"
     />
   </div>
 </template>
