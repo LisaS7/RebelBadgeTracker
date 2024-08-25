@@ -6,7 +6,8 @@ import BadgeProgress from "@/components/BadgeElements/BadgeProgress.vue";
 import BadgeRating from "@/components/BadgeElements/BadgeRating.vue";
 
 const search = ref("");
-const toggle_multiple = ref([]);
+const ratingFilter = ref([]);
+const tagFilter = ref([]);
 const props = defineProps(["badges"]);
 const badges = ref(props.badges);
 const headers = [
@@ -18,13 +19,34 @@ const headers = [
   { title: "Tags", value: "tags" },
 ];
 
-function toggleGroup(ev) {
-  if (toggle_multiple.value.length > 0) {
-    badges.value = props.badges.filter((item) =>
-      toggle_multiple.value.includes(item.rating)
-    );
-  } else {
+function toggleRating() {
+  const ratingFiltersCount = ratingFilter.value.length;
+  if (ratingFiltersCount === 0) {
     badges.value = props.badges;
+  } else {
+    badges.value = props.badges.filter((item) =>
+      ratingFilter.value.includes(item.rating)
+    );
+  }
+}
+
+function toggleTags(ev) {
+  console.log(ev);
+  ratingFilter.value = [];
+  if (tagFilter.value.length === 0) {
+    badges.value = props.badges;
+  }
+  if (tagFilter.value.includes("started")) {
+    badges.value = props.badges.filter((item) => item.is_started);
+    tagFilter.value = [];
+  }
+  if (tagFilter.value.includes("next")) {
+    badges.value = props.badges.filter((item) => item.is_next);
+    tagFilter.value = [];
+  }
+  if (tagFilter.value.includes("purchased")) {
+    badges.value = props.badges.filter((item) => item.is_purchased);
+    tagFilter.value = [];
   }
 }
 </script>
@@ -42,15 +64,15 @@ function toggleGroup(ev) {
       ></v-text-field>
     </template>
   </v-card>
-  <v-row class="justify-end">
+  <v-row class="justify-end filter-container">
     <v-col class="v-col-3"
       ><p>Filter rating</p>
       <v-btn-toggle
-        v-model="toggle_multiple"
+        v-model="ratingFilter"
         background-color="primary"
         dark
         multiple
-        @update:modelValue="toggleGroup"
+        @update:modelValue="toggleRating"
       >
         <v-btn value="✖️"> ✖️ </v-btn>
         <v-btn value="🟢"> 🟢 </v-btn>
@@ -59,7 +81,20 @@ function toggleGroup(ev) {
         <v-btn value="🔴"> 🔴 </v-btn>
       </v-btn-toggle></v-col
     >
-    <v-col class="v-col-3"> </v-col>
+    <v-col class="v-col-3"
+      ><p>Filter Tags</p>
+      <v-btn-toggle
+        v-model="tagFilter"
+        background-color="primary"
+        dark
+        multiple
+        @update:modelValue="toggleTags"
+      >
+        <v-btn value="started"> Started </v-btn>
+        <v-btn value="next"> Next </v-btn>
+        <v-btn value="purchased"> Purchased </v-btn>
+      </v-btn-toggle></v-col
+    >
   </v-row>
   <v-data-table
     :headers="headers"
@@ -97,7 +132,6 @@ function toggleGroup(ev) {
 }
 
 .filter-container {
-  width: 25%;
-  /* margin: 2rem 0 2rem 5rem; */
+  background: #212121;
 }
 </style>
