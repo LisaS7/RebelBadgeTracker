@@ -1,7 +1,7 @@
 <script setup>
 import { useRoute } from "vue-router";
 import { useBadgeStore } from "@/stores/BadgeStore";
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import BaseHeading from "@/components/Base/BaseHeading.vue";
 import BadgeIcon from "@/components/BadgeElements/BadgeIcon.vue";
 import BadgeProgress from "@/components/BadgeElements/BadgeProgress.vue";
@@ -13,11 +13,9 @@ const route = useRoute();
 const id = parseInt(route.params.id);
 
 const badge = badgeStore.badges.find((badge) => badge.id === id);
-const clauses_complete = badge.clauses.filter(
-  (clause) => clause.complete
-).length;
-const progress = (clauses_complete / badge.clauses_required) * 100;
-console.log(badge);
+let clauses_complete = ref(
+  badge.clauses.filter((clause) => clause.complete).length
+);
 
 function updateProgress(value) {
   if (value === true) {
@@ -25,6 +23,8 @@ function updateProgress(value) {
   } else {
     clauses_complete.value--;
   }
+
+  badge.progress = (clauses_complete.value / badge.clauses_required) * 100;
 }
 </script>
 
@@ -38,7 +38,7 @@ function updateProgress(value) {
     />
   </BaseHeading>
   <div class="progress-container">
-    <BadgeProgress :progress="progress" />
+    <BadgeProgress :progress="badge.progress" />
   </div>
   <div class="row">
     <BadgeCard :badge="badge" />
