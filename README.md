@@ -30,6 +30,14 @@ cd flask_app
 flask run
 ```
 
+Now we need to run the vue app.
+In a new terminal window
+
+```
+cd frontend
+npm run dev
+```
+
 ## Notes
 
 To backup the database run this command in the db directory
